@@ -233,9 +233,9 @@
       <version>${spring.oauth2.security.version}</version>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql-jdbc-driver.version}</version>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql-jdbc-driver.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
