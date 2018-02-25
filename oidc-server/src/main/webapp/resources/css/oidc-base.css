@@ -1,0 +1,98 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300);
+
+body {
+    font-family: "Roboto", Sans-serif;
+    font-weight: 400;
+    color: #2b3f44;
+    -webkit-font-smoothing: antialiased;
+}
+
+.main {
+    padding-top: 30px;
+}
+
+.container-fluid {
+    background-color: #FFFFFF;
+}
+
+h1, label {
+    text-shadow: none;
+}
+
+#push {
+    background-color: #FFFFFF;
+}
+
+#wrap {
+    background-color: #FFFFFF;
+}
+
+.navbar-fixed-top {
+    top: 0;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+     position: inherit;
+     right: 0;
+     left: 0;
+     z-index: 1030;
+     margin-bottom: 0;
+}
+
+.row-fluid {
+    border-radius: 5px;
+    margin: 0 auto 0px;
+}
+
+.btn-primary {
+    background: #4DB3CF none;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+    background: #4B9EBA none;
+}
+
+.dl-horizontal dt {
+    width: 220px;
+}
+.dl-horizontal dd {
+    margin-left: 240px;
+}
+.breadcrumb {
+    margin: 0px 0px 20px 0px;
+    list-style: none;
+    border-radius: 5px;
+}
+.hero-unit {
+    padding: 30px 30px 30px 30px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 6px;
+    background-color: #F5F5F5;
+}
+.hero-unit h1 {
+    font-size: 28px;
+    color: #4DB3CF;
+    margin-bottom: 25px;
+    text-shadow: none;
+    font-style: normal;
+}
+.hero-unit p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 18px;
+}
+
+#footer {
+    background-color: #EFEFEE;
+    overflow: hidden;
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-left: 20px;
+}
+ul.footer-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.footer-menu li {
+    margin-right: 30px;
+}

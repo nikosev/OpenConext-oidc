@@ -1,0 +1,21 @@
+{
+    "sub": "0123456789@example.org",
+    "name": "John Doe",
+    "givenName": "John",
+    "familyName": "Doe",
+    "email": "john.doe@example.org",
+    "unspecifiedNameId": "urn:collab:person:example.com:local",
+    "authenticatingAuthority": "http://mock-idp",
+    "acr": "http://foo.example.org/assurance/loa-1",
+    "eduPersonUniqueId": "0123456789@example.org",
+    "eduPersonPrincipalName": "jdoe@example.org",
+    "eduPersonTargetedId": "fd9021b35ce0e2bb4fc28d1781e6cbb9eb720fed",
+    "eduPersonScopedAffiliations": [
+        "student",
+        "faculty"
+    ],
+    "eduPersonEntitlements": [
+        "http://xstor.com/contracts/HEd123",
+        "urn:mace:washington.edu:confocalMicroscope"
+    ]
+}

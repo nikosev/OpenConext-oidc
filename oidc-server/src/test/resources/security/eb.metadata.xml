@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="https://aai.egi.eu/proxy/saml2/idp/metadata.php">
+  <md:Extensions>
+    <mdattr:EntityAttributes xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute">
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="http://macedir.org/entity-category-support" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">http://refeds.org/category/research-and-scholarship</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="urn:oasis:names:tc:SAML:attribute:assurance-certification" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">https://aai.egi.eu/LoA#Low</saml:AttributeValue>
+        <saml:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">https://aai.egi.eu/LoA#Substantial</saml:AttributeValue>
+        <saml:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">https://aai.egi.eu/LoA#High</saml:AttributeValue>
+      </saml:Attribute>
+    </mdattr:EntityAttributes>
+  </md:Extensions>
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+    <md:Extensions>
+      <shibmd:Scope xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" regexp="false">egi.eu</shibmd:Scope>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="en">EGI AAI Identity Provider Proxy</mdui:DisplayName>
+        <mdui:Description xml:lang="en">EGI AAI Identity Provider Proxy</mdui:Description>
+        <mdui:InformationURL xml:lang="en">https://wiki.egi.eu/wiki/AAI</mdui:InformationURL>
+        <mdui:Logo width="80" height="60">https://aai.egi.eu/proxy/module.php/egi/resources/EGI_Logo-80x60.png</mdui:Logo>
+        <mdui:Logo width="50" height="50">https://aai.egi.eu/proxy/module.php/egi/resources/EGI_Logo-50x50.png</mdui:Logo>
+      </mdui:UIInfo>
+      <mdui:DiscoHints xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DomainHint>egi.eu</mdui:DomainHint>
+      </mdui:DiscoHints>
+    </md:Extensions>
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIC/TCCAeWgAwIBAgIJAL28js4M2RlTMA0GCSqGSIb3DQEBCwUAMBUxEzARBgNVBAMMCmFhaS5lZ2kuZXUwHhcNMTYwMjE4MDIwNzIzWhcNMjYwMjE3MDIwNzIzWjAVMRMwEQYDVQQDDAphYWkuZWdpLmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvJCZ7qhzee4A/Yp2ov+spIlEZV4s+JMGa5UySjS4TcnVBS3NSsypASdoW4vpZqQxi2Jxnady+SwGbmxW2Q9Ul239LXCxXbkoWpOJBuin69NJ9j5qc2Se7T811TfY7+VBac9vjyw2cu2Qw6QAXqQB+VyAxVqZE72nzrxf/1Sgwmfsm8ivE0/u+6HfVwfZyDz+wTzHsMYHzCx7P9LWTrIjEDCdY2Y/4RzciYyyhZtGXI6vDgKV+mAsNKKyHdhxxbuOWaMUK+nnd+365hjAghNUo8TCgkaYPUYt7/STR4k4vC1d0hDvwU2mDHFnG3lxZxhGPU6Iq6DAno+RA/E/dw9/fwIDAQABo1AwTjAdBgNVHQ4EFgQUPGAz+p6tMaY+gLJT7SXXTVWmmocwHwYDVR0jBBgwFoAUPGAz+p6tMaY+gLJT7SXXTVWmmocwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAIhPJxL9gkrzF1LzjKOfUj46inB7C+exy9paChDWl3UwRan3+iq2fTJ8mJp5olWWhO+EINuBL7s0lHfmaud365Vs2/E9+4KBg0xrtJt4Ipa15Io1KDf2ZQf1sGQTGakJ3HMsXdvKJPFp1+uqAumABKfG9PukHSxRarhmzMy8tDR09dIB1FYwB5l0Wnhwj6Xyr404cI3y8Q7vi7CoDOzjPPss5IbZeGbX9WvoVgZi6L7hSlfV1fN5TqURkB4n5YVlpIEI+h1snU/WJSq0zGcSzlYNqoj6PFvrLiuKB2vc1eqNXBdS+9DeoaI9RyfA4LTaswIGms8R7YZZp9fYvFRn8Cg==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIC/TCCAeWgAwIBAgIJAL28js4M2RlTMA0GCSqGSIb3DQEBCwUAMBUxEzARBgNVBAMMCmFhaS5lZ2kuZXUwHhcNMTYwMjE4MDIwNzIzWhcNMjYwMjE3MDIwNzIzWjAVMRMwEQYDVQQDDAphYWkuZWdpLmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvJCZ7qhzee4A/Yp2ov+spIlEZV4s+JMGa5UySjS4TcnVBS3NSsypASdoW4vpZqQxi2Jxnady+SwGbmxW2Q9Ul239LXCxXbkoWpOJBuin69NJ9j5qc2Se7T811TfY7+VBac9vjyw2cu2Qw6QAXqQB+VyAxVqZE72nzrxf/1Sgwmfsm8ivE0/u+6HfVwfZyDz+wTzHsMYHzCx7P9LWTrIjEDCdY2Y/4RzciYyyhZtGXI6vDgKV+mAsNKKyHdhxxbuOWaMUK+nnd+365hjAghNUo8TCgkaYPUYt7/STR4k4vC1d0hDvwU2mDHFnG3lxZxhGPU6Iq6DAno+RA/E/dw9/fwIDAQABo1AwTjAdBgNVHQ4EFgQUPGAz+p6tMaY+gLJT7SXXTVWmmocwHwYDVR0jBBgwFoAUPGAz+p6tMaY+gLJT7SXXTVWmmocwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAIhPJxL9gkrzF1LzjKOfUj46inB7C+exy9paChDWl3UwRan3+iq2fTJ8mJp5olWWhO+EINuBL7s0lHfmaud365Vs2/E9+4KBg0xrtJt4Ipa15Io1KDf2ZQf1sGQTGakJ3HMsXdvKJPFp1+uqAumABKfG9PukHSxRarhmzMy8tDR09dIB1FYwB5l0Wnhwj6Xyr404cI3y8Q7vi7CoDOzjPPss5IbZeGbX9WvoVgZi6L7hSlfV1fN5TqURkB4n5YVlpIEI+h1snU/WJSq0zGcSzlYNqoj6PFvrLiuKB2vc1eqNXBdS+9DeoaI9RyfA4LTaswIGms8R7YZZp9fYvFRn8Cg==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://aai.egi.eu/proxy/saml2/idp/SingleLogoutService.php"/>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://aai.egi.eu/proxy/saml2/idp/SSOService.php"/>
+  </md:IDPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">EGI.eu</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">EGI.eu</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">https://www.egi.eu/</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="administrative">
+    <md:Company>Greek Research and Technology Network</md:Company>
+    <md:GivenName>Christos</md:GivenName>
+    <md:SurName>Kanellopoulos</md:SurName>
+    <md:EmailAddress>mailto:skanct@admin.grnet.gr</md:EmailAddress>
+  </md:ContactPerson>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Nicolas</md:GivenName>
+    <md:SurName>Liampotis</md:SurName>
+    <md:EmailAddress>nliam@grnet.gr</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>
