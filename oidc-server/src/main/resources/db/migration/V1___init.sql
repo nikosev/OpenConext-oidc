@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS system_scope (
 
 CREATE TABLE IF NOT EXISTS user_info (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
-	sub VARCHAR(256),
+	sub VARCHAR(255),
 	preferred_username VARCHAR(256),
 	name VARCHAR(256),
 	given_name VARCHAR(256),
@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS whitelisted_site_scope (
 CREATE TABLE IF NOT EXISTS pairwise_identifier (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	identifier VARCHAR(256),
-	sub VARCHAR(256),
+	sub VARCHAR(255),
 	sector_identifier VARCHAR(2048)
 );
 
@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS saved_registered_client (
 );
 
 
-CREATE INDEX at_tv_idx ON access_token(token_value(767));
+CREATE INDEX at_tv_idx ON access_token(token_value(255));
 CREATE INDEX ts_oi_idx ON token_scope(owner_id);
 CREATE INDEX at_exp_idx ON access_token(expiration);
 CREATE INDEX rf_ahi_idx ON refresh_token(auth_holder_id);
