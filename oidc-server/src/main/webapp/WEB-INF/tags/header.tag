@@ -72,6 +72,21 @@
 				return false;
 			}
 		}
+
+		// get access token timeout value
+		function getMaxAccessTokenLifeTime() {
+			return ${ config.maxAccessTokenLifeTime };
+		}
+
+		// get refresh token timeout value
+		function getMaxRefreshTokenLifeTime() {
+			return ${ config.maxRefreshTokenLifeTime };
+		}
+
+		// get id token timeout value
+		function getMaxIdTokenLifeTime() {
+			return ${ config.maxIdTokenLifeTime };
+		}
     </script>    
 </head>
 

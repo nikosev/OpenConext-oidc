@@ -47,6 +47,15 @@
 		<!-- This property sets the lifetime of registration access tokens, in seconds. Leave it unset (null) for no rotation. -->
 		<!-- <property name="regTokenLifeTime" value="172800" /> -->
 
+		<!-- This property sets the maxinum lifetime of refresh tokens, in seconds. -->
+		<property name="maxRefreshTokenLifeTime" value="34128000" />
+
+		<!-- This property sets the maxinum lifetime of access tokens, in seconds. -->
+		<property name="maxAccessTokenLifeTime" value="3600" />
+
+		<!-- This property sets the maxinum lifetime of id tokens, in seconds. -->
+		<property name="maxIdTokenLifeTime" value="600" />
+
 		<!-- This property forces the issuer value to start with "https" -->
 		<!-- <property name="forceHttps" value="true" /> -->
 
