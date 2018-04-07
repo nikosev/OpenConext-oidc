@@ -29,6 +29,11 @@ public class FederatedUserInfo extends DefaultUserInfo {
 
   private Set<String> eduPersonScopedAffiliations = new HashSet<>();
   private Set<String> eduPersonEntitlements = new HashSet<>();
+  // new claims' titles
+  private Set<String> newEduPersonEntitlements = new HashSet<>();
+  private Set<String> newEduPersonScopedAffiliations = new HashSet<>();
+  private String newEduPersonUniqueId;
+  private String eduPersonAssurance;
 
   @Basic
   @Column(name = "unspecified_name_id")
@@ -137,6 +142,56 @@ public class FederatedUserInfo extends DefaultUserInfo {
     this.eduPersonEntitlements = eduPersonEntitlements;
   }
 
+  // New claims' titles
+
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_eduperson_entitlement",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "eduperson_entitlement")
+  public Set<String> getNewEduPersonEntitlements() {
+    return newEduPersonEntitlements;
+  }
+
+  public void setNewEduPersonEntitlements(Set<String> newEduPersonEntitlements) {
+    this.newEduPersonEntitlements = newEduPersonEntitlements;
+  }
+
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_eduperson_scoped_affiliation",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "eduperson_scoped_affiliation")
+  public Set<String> getNewEduPersonScopedAffiliations() {
+    return newEduPersonScopedAffiliations;
+  }
+
+  public void setNewEduPersonScopedAffiliations(Set<String> newEduPersonScopedAffiliations) {
+    this.newEduPersonScopedAffiliations = newEduPersonScopedAffiliations;
+  }
+
+  @Basic
+  @Column(name = "eduperson_unique_id")
+  public String getNewEduPersonUniqueId() {
+    return newEduPersonUniqueId;
+  }
+
+  public void setNewEduPersonUniqueId(String newEduPersonUniqueId) {
+    this.newEduPersonUniqueId = newEduPersonUniqueId;
+  }
+
+  @Basic
+  @Column(name = "eduperson_assurance")
+  public String getEduPersonAssurance() {
+    return this.eduPersonAssurance;
+  }
+
+  public void setEduPersonAssurance(String eduPersonAssurance) {
+    this.eduPersonAssurance = eduPersonAssurance;
+  }
+
   @Override
   public JsonObject toJson() {
     JsonObject obj = super.toJson();
@@ -147,6 +202,13 @@ public class FederatedUserInfo extends DefaultUserInfo {
 
     addListProperty(obj, this.eduPersonScopedAffiliations, "edu_person_scoped_affiliations");
     addListProperty(obj, this.eduPersonEntitlements, "edu_person_entitlements");
+    // New claims' titles
+    addProperty(obj, this.eduPersonAssurance, "eduperson_assurance");
+    addProperty(obj, this.newEduPersonUniqueId, "eduperson_unique_id");
+    //addProperty(obj, this.eduPersonPrincipalName, "eduperson_principal_name");
+    //addProperty(obj, this.eduPersonTargetedId, "eduperson_targeted_id");
+    addListProperty(obj, this.newEduPersonScopedAffiliations, "eduperson_scoped_affiliations");
+    addListProperty(obj, this.newEduPersonEntitlements, "eduperson_entitlements");
     return obj;
   }
 
@@ -177,6 +239,11 @@ public class FederatedUserInfo extends DefaultUserInfo {
         ", eduPersonTargetedId='" + eduPersonTargetedId + '\'' +
         ", eduPersonScopedAffiliations=" + eduPersonScopedAffiliations +
         ", eduPersonEntitlements=" + eduPersonEntitlements +
+        // New claims' titles
+        ", newEduPersonEntitlements=" + newEduPersonEntitlements +
+        ", eduPersonScopedAffiliations=" + newEduPersonScopedAffiliations +
+        ", eduPersonUniqueId='" + newEduPersonUniqueId + '\'' +
+        ", eduPersonAssurance='" + eduPersonAssurance + '\'' +
         '}';
   }
 
