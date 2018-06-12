@@ -21,19 +21,17 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
   @Override
   public Map<String, Object> assembleFrom(OAuth2AccessTokenEntity accessToken, UserInfo userInfo, Set<String> authScopes) {
     Map<String, Object> result = super.assembleFrom(accessToken, userInfo, authScopes);
-    if (properties != null) {
-      result.put("iss", properties.getIssuer());
-    } else {
-      result.put("iss", "null");
-    }
     if (userInfo != null && userInfo instanceof FederatedUserInfo) {
       FederatedUserInfo federatedUserInfo = (FederatedUserInfo) userInfo;
+      result.put("iss", properties.getIssuer());
       result.put("authenticating_authority", federatedUserInfo.getAuthenticatingAuthority());
       result.put("acr", federatedUserInfo.getAcr());
       result.put("edu_person_entitlements", federatedUserInfo.getEduPersonEntitlements());
       // New claims' titles
-      result.put("eduperson_entitlements", federatedUserInfo.getNewEduPersonEntitlements());
+      result.put("eduperson_entitlement", federatedUserInfo.getNewEduPersonEntitlement());
       result.put("eduperson_assurance", federatedUserInfo.getEduPersonAssurance());
+      result.put("edu_person_scoped_affiliations", federatedUserInfo.getEduPersonScopedAffiliations());
+      result.put("eduperson_scoped_affiliation", federatedUserInfo.getNewEduPersonScopedAffiliation());
     }
     return result;
   }

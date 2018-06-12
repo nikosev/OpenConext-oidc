@@ -30,10 +30,10 @@ public class FederatedUserInfo extends DefaultUserInfo {
   private Set<String> eduPersonScopedAffiliations = new HashSet<>();
   private Set<String> eduPersonEntitlements = new HashSet<>();
   // new claims' titles
-  private Set<String> newEduPersonEntitlements = new HashSet<>();
-  private Set<String> newEduPersonScopedAffiliations = new HashSet<>();
+  private Set<String> newEduPersonEntitlement = new HashSet<>();
+  private Set<String> newEduPersonScopedAffiliation = new HashSet<>();
+  private Set<String> eduPersonAssurance = new HashSet<>();
   private String newEduPersonUniqueId;
-  private String eduPersonAssurance;
 
   @Basic
   @Column(name = "unspecified_name_id")
@@ -150,12 +150,12 @@ public class FederatedUserInfo extends DefaultUserInfo {
       joinColumns = @JoinColumn(name = "user_id")
   )
   @Column(name = "eduperson_entitlement")
-  public Set<String> getNewEduPersonEntitlements() {
-    return newEduPersonEntitlements;
+  public Set<String> getNewEduPersonEntitlement() {
+    return newEduPersonEntitlement;
   }
 
-  public void setNewEduPersonEntitlements(Set<String> newEduPersonEntitlements) {
-    this.newEduPersonEntitlements = newEduPersonEntitlements;
+  public void setNewEduPersonEntitlement(Set<String> newEduPersonEntitlement) {
+    this.newEduPersonEntitlement = newEduPersonEntitlement;
   }
 
   @ElementCollection(fetch = FetchType.EAGER)
@@ -164,12 +164,26 @@ public class FederatedUserInfo extends DefaultUserInfo {
       joinColumns = @JoinColumn(name = "user_id")
   )
   @Column(name = "eduperson_scoped_affiliation")
-  public Set<String> getNewEduPersonScopedAffiliations() {
-    return newEduPersonScopedAffiliations;
+  public Set<String> getNewEduPersonScopedAffiliation() {
+    return newEduPersonScopedAffiliation;
   }
 
-  public void setNewEduPersonScopedAffiliations(Set<String> newEduPersonScopedAffiliations) {
-    this.newEduPersonScopedAffiliations = newEduPersonScopedAffiliations;
+  public void setNewEduPersonScopedAffiliation(Set<String> newEduPersonScopedAffiliation) {
+    this.newEduPersonScopedAffiliation = newEduPersonScopedAffiliation;
+  }
+
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_eduperson_assurance",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "eduperson_assurance")
+  public Set<String> getEduPersonAssurance() {
+    return eduPersonAssurance;
+  }
+
+  public void setEduPersonAssurance(Set<String> eduPersonAssurance) {
+    this.eduPersonAssurance = eduPersonAssurance;
   }
 
   @Basic
@@ -180,16 +194,6 @@ public class FederatedUserInfo extends DefaultUserInfo {
 
   public void setNewEduPersonUniqueId(String newEduPersonUniqueId) {
     this.newEduPersonUniqueId = newEduPersonUniqueId;
-  }
-
-  @Basic
-  @Column(name = "eduperson_assurance")
-  public String getEduPersonAssurance() {
-    return this.eduPersonAssurance;
-  }
-
-  public void setEduPersonAssurance(String eduPersonAssurance) {
-    this.eduPersonAssurance = eduPersonAssurance;
   }
 
   @Override
@@ -203,12 +207,12 @@ public class FederatedUserInfo extends DefaultUserInfo {
     addListProperty(obj, this.eduPersonScopedAffiliations, "edu_person_scoped_affiliations");
     addListProperty(obj, this.eduPersonEntitlements, "edu_person_entitlements");
     // New claims' titles
-    addProperty(obj, this.eduPersonAssurance, "eduperson_assurance");
+    addListProperty(obj, this.eduPersonAssurance, "eduperson_assurance");
     addProperty(obj, this.newEduPersonUniqueId, "eduperson_unique_id");
     //addProperty(obj, this.eduPersonPrincipalName, "eduperson_principal_name");
     //addProperty(obj, this.eduPersonTargetedId, "eduperson_targeted_id");
-    addListProperty(obj, this.newEduPersonScopedAffiliations, "eduperson_scoped_affiliations");
-    addListProperty(obj, this.newEduPersonEntitlements, "eduperson_entitlements");
+    addListProperty(obj, this.newEduPersonScopedAffiliation, "eduperson_scoped_affiliations");
+    addListProperty(obj, this.newEduPersonEntitlement, "eduperson_entitlements");
     return obj;
   }
 
@@ -234,14 +238,13 @@ public class FederatedUserInfo extends DefaultUserInfo {
         "unspecifiedNameId='" + unspecifiedNameId + '\'' +
         ", authenticatingAuthority='" + authenticatingAuthority + '\'' +
         ", acr='" + acr + '\'' +
-        ", eduPersonUniqueId='" + eduPersonUniqueId + '\'' +
         ", eduPersonPrincipalName='" + eduPersonPrincipalName + '\'' +
         ", eduPersonTargetedId='" + eduPersonTargetedId + '\'' +
         ", eduPersonScopedAffiliations=" + eduPersonScopedAffiliations +
         ", eduPersonEntitlements=" + eduPersonEntitlements +
         // New claims' titles
-        ", newEduPersonEntitlements=" + newEduPersonEntitlements +
-        ", eduPersonScopedAffiliations=" + newEduPersonScopedAffiliations +
+        ", newEduPersonEntitlement=" + newEduPersonEntitlement +
+        ", eduPersonScopedAffiliation=" + newEduPersonScopedAffiliation +
         ", eduPersonUniqueId='" + newEduPersonUniqueId + '\'' +
         ", eduPersonAssurance='" + eduPersonAssurance + '\'' +
         '}';
