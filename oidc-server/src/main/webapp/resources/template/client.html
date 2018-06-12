@@ -332,7 +332,13 @@
                         <input id="grantTypes-redelegate" type="checkbox"
                             <%-($.inArray("urn:ietf:params:oauth:grant_type:redelegate", client.grantTypes) > -1 ? 'checked' : '')%>> 
                         <label for="grantTypes-redelegate" class="checkbox" data-i18n="client.client-form.redelegation">redelegate</label>
-                    </div>
+					</div>
+					
+					<div>
+						<input id="grantTypes-token-exchange" type="checkbox"
+							<%-($.inArray("urn:ietf:params:oauth:grant-type:token-exchange", client.grantTypes) > -1 ? 'checked' : '')%>> 
+						<label for="grantTypes-token-exchange" class="checkbox" data-i18n="client.client-form.token-exchange">token exchange</label>
+					</div>
                 </div>
             </div>
 
@@ -527,7 +533,7 @@
 							<option data-i18n="client.client-form.hours">hours</option>
 						</select>
                     </div>
-                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxAccessTokenValue %> seconds, <%- maxAccessTokenValue/60 %> minutes or <%- maxAccessTokenValue/3600 %> hours).</p>
+                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxAccessTokenValue %> seconds(11.5 days)).</p>
                 </div>
             </div>
 
@@ -543,7 +549,7 @@
 							<option data-i18n="client.client-form.hours">hours</option>
 						</select>
                     </div>
-                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxIdTokenValue %> seconds, <%- maxIdTokenValue/60 %> minutes or <%- maxIdTokenValue/3600 %> hours).</p>
+                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxIdTokenValue %> seconds(24 hours)).</p>
                 </div>
             </div>
 
@@ -580,7 +586,7 @@
 							<option data-i18n="client.client-form.hours">hours</option>
 						</select>
 					</div>
-                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxRefreshTokenValue %> seconds, <%- maxRefreshTokenValue/60 %> minutes or <%- maxRefreshTokenValue/3600 %> hours).</p>
+                    <p class="help-block" data-i18n="client.client-form.token-timeout-help">Enter this time in seconds, minutes, or hours (Max value is <%- maxRefreshTokenValue %> seconds(13 months)).</p>
                 </div>
             </div>
 	</div>

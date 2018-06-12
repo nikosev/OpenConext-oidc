@@ -73,20 +73,35 @@
 			}
 		}
 
-		// get access token timeout value
-		function getMaxAccessTokenLifeTime() {
-			return ${ config.maxAccessTokenLifeTime };
-		}
+		// get max access token timeout value
+        function getMaxAccessTokenLifeTime() {
+            return ${ config.maxAccessTokenLifeTime };
+        }
 
-		// get refresh token timeout value
-		function getMaxRefreshTokenLifeTime() {
-			return ${ config.maxRefreshTokenLifeTime };
-		}
+        // get max refresh token timeout value
+        function getMaxRefreshTokenLifeTime() {
+            return ${ config.maxRefreshTokenLifeTime };
+        }
 
-		// get id token timeout value
-		function getMaxIdTokenLifeTime() {
-			return ${ config.maxIdTokenLifeTime };
-		}
+        // get max id token timeout value
+        function getMaxIdTokenLifeTime() {
+            return ${ config.maxIdTokenLifeTime };
+        }
+
+        // get default access token timeout value
+        function getDefaultAccessTokenLifeTime() {
+            return ${ config.defaultAccessTokenLifeTime };
+        }
+
+        // get default refresh token timeout value
+        function getDefaultRefreshTokenLifeTime() {
+            return ${ config.defaultRefreshTokenLifeTime };
+        }
+
+        // get default id token timeout value
+        function getDefaultIdTokenLifeTime() {
+            return ${ config.defaultIdTokenLifeTime };
+        }
     </script>    
 </head>
 

@@ -801,7 +801,7 @@ var ClientFormView = Backbone.View.extend({
     	'password': 'password',
     	'implicit': 'implicit',
     	'client_credentials': 'client_credentials',
-    	'redelegate': 'urn:ietf:params:oauth:grant_type:redelegate',
+		'redelegate': 'urn:ietf:params:oauth:grant_type:redelegate',
     	'refresh_token': 'refresh_token'
     },
     
@@ -875,19 +875,21 @@ var ClientFormView = Backbone.View.extend({
         	accessTokenValiditySeconds = this.getFormTokenNumberValue($('#accessTokenValidityTime input[type=text]').val(), $('#accessTokenValidityTime select').val()); 
         }
 
-	/* if (accessTokenValiditySeconds < 0 || accessTokenValiditySeconds > getMaxAccessTokenLifeTime()) {
-		// Display an alert with an error message
-		app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.access-token-duration"));
-		return false;
-	} */
+		if (accessTokenValiditySeconds < 1 || accessTokenValiditySeconds > getMaxAccessTokenLifeTime()) {
+			// Display an alert with an error message
+			// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.access-token-duration"));
+			// return false;
+			accessTokenValiditySeconds = getDefaultAccessTokenLifeTime(); 
+		}
         
         var idTokenValiditySeconds = this.getFormTokenNumberValue($('#idTokenValidityTime input[type=text]').val(), $('#idTokenValidityTime select').val()); 
 
-	/* if (idTokenValiditySeconds < 0 || idTokenValiditySeconds > getMaxIdTokenLifeTime()) {
-		// Display an alert with an error message
-		app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.id-token-duration"));
-		return false;
-	} */
+		if (idTokenValiditySeconds < 1 || idTokenValiditySeconds > getMaxIdTokenLifeTime()) {
+			// Display an alert with an error message
+			// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.id-token-duration"));
+			// return false;
+			idTokenValiditySeconds = getDefaultIdTokenLifeTime();
+		}
 
         var refreshTokenValiditySeconds = null;
         if ($('#allowRefresh').is(':checked')) {
@@ -904,11 +906,12 @@ var ClientFormView = Backbone.View.extend({
         		refreshTokenValiditySeconds = this.getFormTokenNumberValue($('#refreshTokenValidityTime input[type=text]').val(), $('#refreshTokenValidityTime select').val());
         	}
 
-		/* if (refreshTokenValiditySeconds < 0 || refreshTokenValiditySeconds > getMaxRefreshTokenLifeTime()) {
-			// Display an alert with an error message
-			app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.refresh-token-duration"));
-			return false;
-		} */
+			if (refreshTokenValiditySeconds < 1 || refreshTokenValiditySeconds > getMaxRefreshTokenLifeTime()) {
+				// Display an alert with an error message
+				// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.refresh-token-duration"));
+				// return false;
+				refreshTokenValiditySeconds = getDefaultRefreshTokenLifeTime();
+			}
         }
         
         // make sure that the subject identifier is consistent with the redirect URIs
@@ -1085,11 +1088,14 @@ var ClientFormView = Backbone.View.extend({
     render:function (eventName) {
     	
     	var data = {
-		client: this.model.toJSON(),
-		maxRefreshTokenValue: getMaxRefreshTokenLifeTime(),
-		maxAccessTokenValue: getMaxAccessTokenLifeTime(),
-		maxIdTokenValue: getMaxIdTokenLifeTime()
-	};
+			client: this.model.toJSON(),
+			maxRefreshTokenValue: getMaxRefreshTokenLifeTime(),
+			maxAccessTokenValue: getMaxAccessTokenLifeTime(),
+			maxIdTokenValue: getMaxIdTokenLifeTime(),
+			defaultRefreshTokenValue: getDefaultRefreshTokenLifeTime(),
+			defaultAccessTokenValue: getDefaultAccessTokenLifeTime(),
+			defaultIdTokenValue: getDefaultIdTokenLifeTime()
+		};
         $(this.el).html(this.template(data));
         
         var _self = this;
