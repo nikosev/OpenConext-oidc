@@ -2,14 +2,34 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="o" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div id="push"></div>
 </div>
 <!-- end #wrap -->
+<div id="cookies">
+    <p>
+	    <a id="js-accept-cookies" class="cookies-ok" href="#">
+		    <spring:message code="openconext.footer.cookies_accept_btn_text"/>
+		</a>
+        <spring:message code="openconext.footer.cookies_text"/>
+        <a href="<spring:message code="openconext.footer.cookies_link_url"/>" target="_blank">
+        <spring:message code="openconext.footer.cookies_link_text"/>
+		</a>
+	</p>
+</div>
 <div id="footer">
         <div class="container">
-                <p class="muted credit">
-                        <o:copyright />
-                </p>
+		<div class="row">
+			<div class="col-sm-3 ssp-footer__item"></div>
+			<div class="col-sm-6 ssp-footer__item">
+                        	<o:copyright />
+			</div>
+			<div class="col-sm-3 ssp-footer__item powered">
+				<div class="ssp-footer__item__powered">
+				 	Powered by <a href="https://github.com/rciam">RCIAM</a>
+				</div>
+			</div>
+		</div>
         </div>
 </div>
 <!-- javascript
@@ -22,6 +42,8 @@
 <script type="text/javascript" src="resources/js/lib/bootstrapx-clickover.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootstrap-sheet.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootpag.js"></script>
+<script type="text/javascript" src="resources/js/cookie.js"></script>
+<script type="text/javascript" src="resources/js/theme.js"></script>
 <c:if test="${js != null && js != ''}">
         <script type="text/javascript" src="resources/js/client.js"></script>
         <script type="text/javascript" src="resources/js/scope.js"></script>

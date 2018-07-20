@@ -17,6 +17,7 @@
 
     <!-- stylesheets -->
     <link href="resources/bootstrap2/css/bootstrap.css" rel="stylesheet">
+    <link href="resources/css/bootstrap-grid.css" rel="stylesheet">
     <link href="resources/css/bootstrap-sheet.css" rel="stylesheet">
     <link href="resources/css/mitreid-connect.css" rel="stylesheet">
     <link href="resources/css/mitreid-connect-local.css" rel="stylesheet">

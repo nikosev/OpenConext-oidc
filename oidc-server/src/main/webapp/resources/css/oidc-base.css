@@ -21,11 +21,13 @@ h1, label {
 }
 
 #push {
+display: none;
     background-color: #FFFFFF;
 }
 
 #wrap {
     background-color: #FFFFFF;
+ 	margin: 0 auto -80px;
 }
 
 .navbar-fixed-top {
@@ -83,16 +85,110 @@ h1, label {
 }
 
 #footer {
-    background-color: #EFEFEE;
+    background: #fff;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-weight: 300;
     overflow: hidden;
-    border-top: 1px solid rgba(0,0,0,.1);
-    padding-left: 20px;
+    padding: 0 20px 20px;
+    text-align: center;
+    min-height: 80px;
 }
-ul.footer-menu {
-    list-style-type: none;
+
+#footer a {
+    color: #0a559c;
+    text-decoration: none;
+}
+
+#footer .ssp-footer__item  {
+    min-height: 60px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+#footer .ssp-footer__item__logo {
+    height: 40px;
+}
+
+#footer .ssp-footer__item__powered {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+#footer .powered {
+    display: table;
+}
+
+.header .ssp-logo {
+    margin-top: 10px;
+}
+
+.header .ssp-logo a {
+	display: inline-block;	
+	padding: 10px;
+}
+
+.header .ssp-logo img {
+	height: 60px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.header h1 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+    font-size: 26px;
+    text-transform: none !important;
+    color: #5b5b5b;
+}
+
+.navbar {
+	background: transparent; 
+	position: absolute;
+}
+
+.navbar-fixed-top .navbar-inner {
+	border: 0 none;
+	box-shadow: none;
+	background: transparent;
+}
+
+.nav-collapse, .nav-collapse.collapse {
+	background: #F5F5F5;
+}
+
+#cookies {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    min-width: 400px;
+    /*display: none;*/
+}
+
+#cookies p {
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    border: 1px solid #90929D;
+    background: #eee;
+    position: relative;
 }
-ul.footer-menu li {
-    margin-right: 30px;
+
+#cookies .cookies-ok {
+    float: right;
+    display: block;
+    margin: 0 0 20px 20px;
+    padding: 10px;
+    background: #0a559c;
+    color: white;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+#cookies .cookies-ok:hover {
+    text-decoration: none;
+    opacity: 0.9;
 }

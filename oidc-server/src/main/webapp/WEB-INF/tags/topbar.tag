@@ -26,6 +26,16 @@
 		</c:choose>
 	</c:otherwise>
 </c:choose>
+<div class="header">
+  <div class="text-center ssp-logo">
+    <a href="https://simplesamlphp.org/">
+      <img src="https://rciam.aai-dev.grnet.gr/ui1/module.php/themevanilla/resources/images/logo.jpg" alt="simplesamlphp">
+    </a>
+  </div>
+  <h1 class="text-center">
+    ${config.topbarTitle}
+  </h1>
+</div>
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -34,7 +44,6 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="">${config.topbarTitle}</a>
 			<c:if test="${ not empty pageName }">
 				<div class="nav-collapse collapse">
 						<security:authorize access="hasRole('ROLE_USER')">
