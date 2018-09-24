@@ -487,7 +487,11 @@
             "service_link":"https://wiki.surfnet.nl/display/conextsupport/Terms+of+Service+%28EN%29",
             "mailto":"support@surfconext.nl",
             "mailto_link":"mailto:support@surfconext.nl",
-            "git_link":"https://github.com/OpenConext/OpenConext-oidc"
+            "git_link":"https://github.com/OpenConext/OpenConext-oidc",
+            "cookies_link_url": "policy",
+            "cookies_link_text": "updated privacy policy and cookie policy.",
+            "cookies_text": "We use cookies to identify you, thereby enabling us to grant you access to the services and resources provided by the Infrastructure, and also to improve your experience on our site. To find out more, read our", 
+            "cookies_accept_btn_text": "OK"
         },
         "welcome" : {
             "title": "Welcome",

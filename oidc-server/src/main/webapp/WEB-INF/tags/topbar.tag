@@ -26,6 +26,17 @@
 		</c:choose>
 	</c:otherwise>
 </c:choose>
+<div class="corner-ribbon red">Develop</div>
+<div class="header">
+  <div class="text-center ssp-logo">
+    <a href="https://simplesamlphp.org/">
+      <img src="resources/images/logo.jpg" alt="simplesamlphp">
+    </a>
+  </div>
+  <h1 class="text-center">
+    ${config.topbarTitle}
+  </h1>
+</div>
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -34,45 +45,8 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href=""><img src="${ config.logoImageUrl }" /> ${config.topbarTitle}</a>
 			<c:if test="${ not empty pageName }">
 				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<c:choose>
-							<c:when test="${pageName == 'Home'}">
-								<li class="active"><a href="" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="topbar.home"/></a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="topbar.home"/></a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${pageName == 'About'}">
-								<li class="active" data-toggle="collapse" data-target=".nav-collapse"><a href=""><spring:message code="topbar.about"/></a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="about" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="topbar.about"/></a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${pageName == 'Statistics'}">
-								<li class="active" data-toggle="collapse" data-target=".nav-collapse"><a href=""><spring:message code="topbar.statistics"/></a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="stats" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="topbar.statistics"/></a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${pageName == 'Contact'}">
-								<li class="active" data-toggle="collapse" data-target=".nav-collapse"><a href=""><spring:message code="topbar.contact"/></a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="contact" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="topbar.contact"/></a></li>
-							</c:otherwise>
-						</c:choose>
-	
-					</ul>
-	
 						<security:authorize access="hasRole('ROLE_USER')">
 		
 							<ul class="nav hidden-desktop">
@@ -85,17 +59,16 @@
 					<ul class="nav pull-right visible-desktop">
 	                    <security:authorize access="hasRole('ROLE_USER')">
 						<li class="dropdown">
-							<a id="userButton" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-user icon-white"></i> ${ longName } <span class="caret"></span></a>
+							<a id="userButton" class="dropdown-toggle" data-toggle="dropdown" href="">${ longName } <i class="icon-user"></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu pull-right">
 								<li><a href="manage/#user/profile" data-toggle="collapse" data-target=".nav-collapse">${ shortName }</a></li>
-								<li class="divider"></li>
-								<li><a href="/oidc/saml/logout" data-toggle="collapse" data-target=".nav-collapse" class="logoutLink"><i class="icon-remove"></i> <spring:message code="topbar.logout"/></a></li>
+								<li><a href="/oidc/saml/logout" data-toggle="collapse" data-target=".nav-collapse" class="logoutLink"><spring:message code="topbar.logout"/><i class="icon-arrow-right"></i> </a></li>
 							</ul>
 						</li>
 	                    </security:authorize>
 	                    <security:authorize access="!hasRole('ROLE_USER')">
 	                    <li>
-	                    	<a id="loginButton" href="/oidc/saml/login" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-lock icon-white"></i> <spring:message code="topbar.login"/></a>
+	                    	<a id="loginButton" href="/oidc/saml/login" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-lock"></i> <spring:message code="topbar.login"/></a>
 	                    </li>
 	                    </security:authorize>
 	                </ul>
@@ -104,8 +77,7 @@
 	                <ul class="nav hidden-desktop">
 	                    <security:authorize access="hasRole('ROLE_USER')">
 						<li><a href="manage/#user/profile">${ longName }</a></li>
-						<li class="divider"></li>
-						<li><a href="/oidc/saml/logout" class="logoutLink"><i class="icon-remove"></i> <spring:message code="topbar.logout"/></a></li>
+						<li><a href="/oidc/saml/logout" class="logoutLink"><i class="icon-arrow-right"></i> <spring:message code="topbar.logout"/></a></li>
 	                    </security:authorize>
 	                    <security:authorize access="!hasRole('ROLE_USER')">
 	                    <li>
