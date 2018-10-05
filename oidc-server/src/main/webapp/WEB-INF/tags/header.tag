@@ -34,7 +34,7 @@
     <![endif]-->
 
     <!-- favico -->
-    <link rel="shortcut icon" href="resources/images/favico.ico">
+    <link rel="shortcut icon" href="<spring:message code="openconext.header.favico"/>">
 
     <!-- Load jQuery up here so that we can use in-page functions -->
     <script type="text/javascript" src="resources/js/lib/jquery.js"></script>

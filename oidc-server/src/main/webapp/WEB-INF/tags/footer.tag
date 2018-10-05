@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-sm-3 ssp-footer__item powered">
 				<div class="ssp-footer__item__powered">
-				 	Powered by <a href="https://github.com/rciam">RCIAM</a>
+				 	Powered by <a href="<spring:message code="openconext.footer.git_link"/>" target="_blank"><spring:message code="openconext.footer.git_project"/></a>
 				</div>
 			</div>
 		</div>
@@ -45,8 +45,8 @@
 <script type="text/javascript" src="resources/js/lib/bootstrapx-clickover.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootstrap-sheet.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootpag.js"></script>
-<script type="text/javascript" src="resources/js/cookie.js"></script>
-<script type="text/javascript" src="resources/js/theme.js"></script>
+<script type="text/javascript" src="resources/js/lib/cookie.js"></script>
+<script type="text/javascript" src="resources/js/lib/theme.js"></script>
 <c:if test="${js != null && js != ''}">
         <script type="text/javascript" src="resources/js/client.js"></script>
         <script type="text/javascript" src="resources/js/scope.js"></script>

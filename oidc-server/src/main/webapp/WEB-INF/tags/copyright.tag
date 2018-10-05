@@ -1,8 +1,7 @@
-<a href="https://grnet.gr/">
-        <img class="ssp-footer__item__logo" src="https://rciam.aai-dev.grnet.gr/ui1/module.php/themevanilla/resources/images/grnet_logo_en.svg" alt="GRNET">
-      </a>
-      <div class="ssp-footer__item__copyright">
-        Copyright &copy; 2016-2018
-      </div>
-
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<a href="<spring:message code="openconext.footer.org_link"/>" target="_blank">
+  <img class="ssp-footer__item__logo" src="<spring:message code="openconext.footer.org_logo"/>" alt="<spring:message code="openconext.footer.org_title"/>">
+</a>
+<div class="ssp-footer__item__copyright">
+  Copyright &copy; <spring:message code="openconext.footer.period"/>
+</div>

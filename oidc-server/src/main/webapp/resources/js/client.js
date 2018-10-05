@@ -390,13 +390,13 @@ var ClientView = Backbone.View.extend({
 		e.preventDefault();
 		if ($('.moreInformation', this.el).is(':visible')) {
 			// hide it
-			//$('.moreInformationContainer', this.el).removeClass('alert').removeClass('alert-info').addClass('muted');
+			$('.moreInformationContainer', this.el).removeClass('alert').removeClass('alert-info').addClass('muted');
 			$('.moreInformation', this.el).hide('fast');
 			$('.toggleMoreInformation i', this.el).attr('class', 'icon-chevron-right');
 		
 		} else {
 			// show it
-			//$('.moreInformationContainer', this.el).addClass('alert').addClass('alert-info').removeClass('muted');
+			$('.moreInformationContainer', this.el).addClass('alert').addClass('alert-info').removeClass('muted');
 			$('.moreInformation', this.el).show('fast');
 			$('.toggleMoreInformation i', this.el).attr('class', 'icon-chevron-down');
 		}
@@ -432,18 +432,18 @@ var ClientListView = Backbone.View.extend({
     		return;
     	}
     	
-      //$('#loadingbox').sheet('show');
-        //$('#loading').html(
-                //'<span class="label" id="loading-clients">' + $.t("common.clients") + '</span> ' +
-                //'<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ' + 
-                //'<span class="label" id="loading-stats">' + $.t("common.statistics") + '</span> ' 
-                //);
+    	$('#loadingbox').sheet('show');
+        $('#loading').html(
+                '<span class="label" id="loading-clients">' + $.t("common.clients") + '</span> ' +
+                '<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ' + 
+                '<span class="label" id="loading-stats">' + $.t("common.statistics") + '</span> ' 
+                );
 
     	$.when(this.model.fetchIfNeeded({success:function(e) {$('#loading-clients').addClass('label-success');}}),
     			this.options.stats.fetchIfNeeded({success:function(e) {$('#loading-stats').addClass('label-success');}}),
     			this.options.systemScopeList.fetchIfNeeded({success:function(e) {$('#loading-scopes').addClass('label-success');}}))
     			.done(function() {
-              //$('#loadingbox').sheet('hide');
+    	    		$('#loadingbox').sheet('hide');
     	    		callback();
     			});
     	
@@ -542,19 +542,19 @@ var ClientListView = Backbone.View.extend({
 	
     refreshTable:function(e) {
     	e.preventDefault();
-      //$('#loadingbox').sheet('show');
-      //$('#loading').html(
-              //'<span class="label" id="loading-clients">' + $.t("common.clients") + '</span> ' +
-          //'<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ' + 
-          //'<span class="label" id="loading-stats">' + $.t("common.statistics") + '</span> ' 
-          //);
+    	$('#loadingbox').sheet('show');
+    	$('#loading').html(
+    	        '<span class="label" id="loading-clients">' + $.t("common.clients") + '</span> ' +
+    			'<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ' + 
+    			'<span class="label" id="loading-stats">' + $.t("common.statistics") + '</span> ' 
+    			);
 
     	var _self = this;
     	$.when(this.model.fetch({success:function(e) {$('#loading-clients').addClass('label-success');}}),
     			this.options.stats.fetch({success:function(e) {$('#loading-stats').addClass('label-success');}}),
     			this.options.systemScopeList.fetch({success:function(e) {$('#loading-scopes').addClass('label-success');}}))
     			.done(function() {
-              //$('#loadingbox').sheet('hide');
+    	    		$('#loadingbox').sheet('hide');
     	    		_self.render();
     			});
     },
@@ -643,21 +643,16 @@ var ClientFormView = Backbone.View.extend({
     		return;
     	}
 
-      //$('#loadingbox').sheet('show');
-      //$('#loading').html(
-                //'<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' +
-          //'<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> '
-          //);
+    	$('#loadingbox').sheet('show');
+    	$('#loading').html(
+                '<span class="label" id="loading-clients">' + $.t('common.clients') + '</span> ' +
+    			'<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> '
+    			);
     	
-    	$.when(this.options.systemScopeList.fetchIfNeeded({success:function(e) {
-          //$('#loading-scopes').addClass('label-success');
-          }}
-          ),
-    		    			this.model.fetchIfNeeded({success:function(e) {
-                    //$('#loading-clients').addClass('label-success');
-                }}))
+    	$.when(this.options.systemScopeList.fetchIfNeeded({success:function(e) {$('#loading-scopes').addClass('label-success');}}),
+    		    			this.model.fetchIfNeeded({success:function(e) {$('#loading-clients').addClass('label-success');}}))
 	    	.done(function() {
-              //$('#loadingbox').sheet('hide');
+    	    		$('#loadingbox').sheet('hide');
     	    		callback();
     			});    	
 	},
@@ -883,18 +878,46 @@ var ClientFormView = Backbone.View.extend({
 
 		if (accessTokenValiditySeconds < 1 || accessTokenValiditySeconds > getMaxAccessTokenLifeTime()) {
 			// Display an alert with an error message
-			// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.access-token-duration"));
-			// return false;
-			accessTokenValiditySeconds = getDefaultAccessTokenLifeTime(); 
+			// TODO REMOVE app.errorHandlerView.showErrorMessage($.t("client.client-form.timeout-bound-error"), $.t("client.client-form.access-token-duration-error"));
+            
+            console.log("An error occurred when setting Access Token validity time");
+
+			//Display an alert with an error message
+			$('#modalAlert').i18n();
+			$('#modalAlert div.modal-header').html($.t('client.client-form.timeout-bound-error'));
+			$('#modalAlert div.modal-body').html($.t('client.client-form.access-token-duration-error'));
+			
+			$("#modalAlert").modal({ // wire up the actual modal functionality and show the dialog
+				"backdrop" : "static",
+				"keyboard" : true,
+				"show" : true // ensure the modal is shown immediately
+			});
+
+			return false;
+
 		}
         
         var idTokenValiditySeconds = this.getFormTokenNumberValue($('#idTokenValidityTime input[type=text]').val(), $('#idTokenValidityTime select').val()); 
 
 		if (idTokenValiditySeconds < 1 || idTokenValiditySeconds > getMaxIdTokenLifeTime()) {
 			// Display an alert with an error message
-			// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.id-token-duration"));
-			// return false;
-			idTokenValiditySeconds = getDefaultIdTokenLifeTime();
+			// TODO REMOVE app.errorHandlerView.showErrorMessage($.t("client.client-form.timeout-bound-error"), $.t("client.client-form.id-token-duration-error"));
+            
+            console.log("An error occurred when setting ID Token validity time");
+
+			//Display an alert with an error message
+			$('#modalAlert').i18n();
+            $('#modalAlert div.modal-header').html($.t('client.client-form.timeout-bound-error'));
+            $('#modalAlert div.modal-body').html($.t('client.client-form.id-token-duration-error'));
+            
+			$("#modalAlert").modal({ // wire up the actual modal functionality and show the dialog
+				"backdrop" : "static",
+				"keyboard" : true,
+				"show" : true // ensure the modal is shown immediately
+            });
+
+			return false;
+
 		}
 
         var refreshTokenValiditySeconds = null;
@@ -914,9 +937,23 @@ var ClientFormView = Backbone.View.extend({
 
 			if (refreshTokenValiditySeconds <= 0 || refreshTokenValiditySeconds > getMaxRefreshTokenLifeTime() || refreshTokenValiditySeconds == null) {
 				// Display an alert with an error message
-				// app.errorHandlerView.showErrorMessage($.t("client.client-form.error.timeout-bound"), $.t("client.client-form.error.refresh-token-duration"));
-				// return false;
-				refreshTokenValiditySeconds = getDefaultRefreshTokenLifeTime();
+				// TODO REMOVE app.errorHandlerView.showErrorMessage($.t("client.client-form.timeout-bound-error"), $.t("client.client-form.refresh-token-duration-error"));
+                
+                console.log("An error occurred when setting Refresh Token validity time");
+
+				//Display an alert with an error message
+				$('#modalAlert').i18n();
+                $('#modalAlert div.modal-header').html($.t('client.client-form.timeout-bound-error'));
+				$('#modalAlert div.modal-body').html($.t('client.client-form.refresh-token-duration-error'));
+                
+                $("#modalAlert").modal({ // wire up the actual modal functionality and show the dialog
+                    "backdrop" : "static",
+                    "keyboard" : true,
+                    "show" : true // ensure the modal is shown immediately
+                });
+
+				return false;
+
 			}
         }
         
@@ -1242,4 +1279,3 @@ var ClientFormView = Backbone.View.extend({
         return this;
     }
 });
-

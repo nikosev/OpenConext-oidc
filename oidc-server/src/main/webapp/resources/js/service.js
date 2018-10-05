@@ -189,7 +189,7 @@ var ServiceView = Backbone.View.extend({
 				$(this).slideUp("fast", function() { // slide up
 					$(this).remove(); // then remove from the DOM
 					_self.parentView.togglePlaceholder();
-					_self.parentView.refreshTable();
+					// _self.parentView.refreshTable();
 				});
 			});
 
@@ -329,7 +329,7 @@ var ServiceRefreshTokenView = Backbone.View.extend({
 							$(this).remove(); // then remove from the DOM
 							// refresh the table in case the access tokens have
 							// changed, too
-							_self.parentView.refreshTable();
+							// _self.parentView.refreshTable();
 						});
 					});
 				}
@@ -514,7 +514,7 @@ var ServiceAccessTokenView = Backbone.View.extend({
 							$('#service-table #refresh-token-table-' + clId + ' #access-token-container-' + refId, _self.el).hide();
 							// refresh the table in case we removed an id token,
 							// too
-							_self.parentView.refreshTable();
+							// _self.parentView.refreshTable();
 						});
 					});
 				}
@@ -581,8 +581,8 @@ var ServiceListView = Backbone.View.extend({
 			return;
 		}
 
-		//$('#loadingbox').sheet('show');
-		//$('#loading').html('<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' +'<span class="label" id="loading-services">' + $.t("common.services") + '</span> ' + '<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ');
+		$('#loadingbox').sheet('show');
+		$('#loading').html('<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' +'<span class="label" id="loading-services">' + $.t("common.services") + '</span> ' + '<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ');
 
 		$.when(this.model.serviceClient.fetchIfNeeded({
 			success: function(e) {
@@ -601,7 +601,7 @@ var ServiceListView = Backbone.View.extend({
 				$('#loading-scopes').addClass('label-success');
 			}
 		})).done(function() {
-			//$('#loadingbox').sheet('hide');
+			$('#loadingbox').sheet('hide');
 			callback();
 		});
 
@@ -794,8 +794,8 @@ var ServiceListView = Backbone.View.extend({
 	},
 
 	refreshTable: function(e) {
-		//$('#loadingbox').sheet('show');
-		//$('#loading').html('<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' +'<span class="label" id="loading-services">' + $.t("common.services") + '</span> ' + '<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ');
+		$('#loadingbox').sheet('show');
+		$('#loading').html('<span class="label" id="loading-access">' + $.t('token.token-table.access-tokens') + '</span> ' + '<span class="label" id="loading-refresh">' + $.t('token.token-table.refresh-tokens') + '</span> ' +'<span class="label" id="loading-services">' + $.t("common.services") + '</span> ' + '<span class="label" id="loading-scopes">' + $.t("common.scopes") + '</span> ');
 
 		var _self = this;
 		$.when(this.model.serviceClient.fetch({
@@ -815,7 +815,7 @@ var ServiceListView = Backbone.View.extend({
 				$('#loading-scopes').addClass('label-success');
 			}
 		})).done(function() {
-			//$('#loadingbox').sheet('hide');
+			$('#loadingbox').sheet('hide');
 			_self.render();
 		});
 	},

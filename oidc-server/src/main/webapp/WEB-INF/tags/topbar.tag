@@ -26,11 +26,14 @@
 		</c:choose>
 	</c:otherwise>
 </c:choose>
-<div class="corner-ribbon red">Develop</div>
+<spring:message code="topbar.ribbon" var="message"/>
+<c:if test="${not empty message}">
+	<div class="corner-ribbon red"><spring:message code="topbar.ribbon"/></div>
+</c:if>
 <div class="header">
   <div class="text-center ssp-logo">
-    <a href="https://simplesamlphp.org/">
-      <img src="resources/images/logo.jpg" alt="simplesamlphp">
+    <a href="<spring:message code="topbar.org_url"/>" target="_blank">
+      <img src="<spring:message code="topbar.org_logo"/>" alt="<spring:message code="topbar.org_title"/>">
     </a>
   </div>
   <h1 class="text-center">

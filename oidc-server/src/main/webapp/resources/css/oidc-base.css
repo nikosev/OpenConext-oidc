@@ -14,12 +14,12 @@ body {
     position: relative;
 }
 
-.main {
-    padding-top: 30px;
-}
-
 .container-fluid {
     background-color: #FFFFFF;
+}
+
+.main {
+    padding-top: 30px;
 }
 
 h1, label {
@@ -464,8 +464,15 @@ body .nav-list .divider {
 
 
 .btn-primary:hover, 
-.btn-success:hover {
+.btn-success:hover, 
+.btn-info:hover,
+.btn-danger:hover {
     opacity: 0.9;
+}
+
+#service-table .btn-copy + .btn-danger {
+    padding-top: 4px;
+    padding-bottom: 5px;
 }
 
 

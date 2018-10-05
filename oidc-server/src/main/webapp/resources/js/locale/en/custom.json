@@ -1,0 +1,78 @@
+{
+    "client": {
+        "client-form": {
+            "client-id-help": "Unique identifier. If you leave this blank it will be automatically generated.",
+            "token-exchange": "token exchange",
+            "timeout-bound-error": "Invalid timeout value",
+            "access-token-duration-error": "The duration of access token is out of range.",
+            "refresh-token-duration-error": "The duration of refresh token is out of range.",
+            "id-token-duration-error": "The duration of id token is out of range."
+        }
+    },
+    "common": {
+        "service": "Service",
+        "services": "Services"
+    },
+    "home": {
+        "title": "Home",
+        "welcome": {
+            "title": "Welcome",
+            "body": "OpenID Connect (OIDC) is an identity protocol built on top of the OAuth2 authorization framework. With OIDC SURFconext it is possible for Service Providers to join the SURFnet federation without having to implement the SAML2 protocol."
+        },
+        "more": "More"
+    },
+    "topbar": {
+        "login": "Sign in",
+        "logout": "Log out",
+        "org_title":"simplesamlphp",
+        "org_logo":"resources/images/logo.jpg",
+        "org_url":"https://simplesamlphp.org/",
+        "ribbon":"Demo"
+    },
+    "sidebar": {
+        "personal": {
+	        "services": "Manage Services"
+        }
+    },
+    "openconext": {
+        "header": {
+            "lang_en": "EN",
+            "welcome": "Welcome",
+            "favico":"resources/images/favico.ico"
+        },
+        "footer": {
+            "period":"2016-2018",
+            "org_title": "GRNET",
+            "org_link":"https://grnet.gr/",
+            "org_logo":"https://rciam.aai-dev.grnet.gr/ui1/module.php/themevanilla/resources/images/grnet_logo_en.svg",
+            "service": "Terms of Service",
+            "service_link": "https://wiki.surfnet.nl/display/conextsupport/Terms+of+Service+%28EN%29",
+            "mailto": "support@surfconext.nl",
+            "mailto_link": "mailto:support@surfconext.nl",
+            "git_project":"RCIAM",
+            "git_link": "https://github.com/rciam",
+            "cookies_link_url": "policy",
+            "cookies_link_text": "updated privacy policy and cookie policy.",
+            "cookies_text": "We use cookies to identify you, thereby enabling us to grant you access to the services and resources provided by the Infrastructure, and also to improve your experience on our site. To find out more, read our", 
+            "cookies_accept_btn_text": "OK"
+        }
+    },
+    "service": {
+        "manage": "Approved Services",
+        "service-table": {
+            "search": "Search...",
+            "no-service": "There are no services.",
+            "text": "These are the services with active access/refresh tokens that can be used to access your SSO profile information. Access tokens are usually short-lived and provide services with access to specific resources. Refresh tokens are usually long-lived and provide services with the ability to get new access tokens without your involvement.",
+            "no-matches": "There are no services that match your search criteria.",
+            "confirm-token": "Are you sure sure you would like to revoke this token?",
+            "confirm-service": "Are you sure sure you would like to revoke this service?",
+            "match": {
+                "description": "description",
+                "id": "id",
+                "logo": "logo",
+                "name": "name",
+                "scope": "scope"
+            }
+        }
+    }
+}
