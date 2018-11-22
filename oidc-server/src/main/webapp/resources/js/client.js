@@ -346,7 +346,7 @@ var ClientView = Backbone.View.extend({
 
     editClient:function (e) {
     	e.preventDefault();
-        app.navigate('admin/client/' + this.model.id, {trigger: true});
+        app.navigate('user/client/' + this.model.id, {trigger: true});
     },
 
     deleteClient:function (e) {
@@ -463,7 +463,7 @@ var ClientListView = Backbone.View.extend({
     newClient:function (e) {
     	e.preventDefault();
         this.remove();
-        app.navigate('admin/client/new', {trigger: true});
+        app.navigate('user/client/new', {trigger: true});
     },
 
     render:function (eventName) {
@@ -636,7 +636,7 @@ var ClientFormView = Backbone.View.extend({
 
     cancel:function(e) {
     	e.preventDefault();
-    	app.navigate('admin/clients', {trigger: true});
+    	app.navigate('user/clients', {trigger: true});
     },
     
 	load:function(callback) {
@@ -1114,7 +1114,7 @@ var ClientFormView = Backbone.View.extend({
             	});
             	
             	app.clientList.add(_self.model);
-                app.navigate('admin/clients', {trigger:true});
+                app.navigate('user/clients', {trigger:true});
             },
             error:function (error, response) {
         		console.log("An error occurred when saving a client");

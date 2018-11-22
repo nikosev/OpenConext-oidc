@@ -353,9 +353,9 @@ var UserProfileView = Backbone.View.extend({
 var AppRouter = Backbone.Router.extend({
 
     routes:{
-        "admin/clients":"listClients",
-        "admin/client/new":"newClient",
-        "admin/client/:id":"editClient",
+        "user/clients":"listClients",
+        "user/client/new":"newClient",
+        "user/client/:id":"editClient",
         
         "admin/scope":"siteScope",
         "admin/scope/new":"newScope",
@@ -370,7 +370,7 @@ var AppRouter = Backbone.Router.extend({
     
     root:function() {
     	if (isAdmin()) {
-    		this.navigate('admin/clients', {trigger: true});
+    	 	this.navigate('user/clients', {trigger: true});
     	} else {
     		this.navigate('user/profile', {trigger: true});
     	}
@@ -402,18 +402,18 @@ var AppRouter = Backbone.Router.extend({
 
     listClients:function () {
 
-    	if (!isAdmin()) {
-    		this.root();
-    		return;
-    	}
+    	// if (!isAdmin()) {
+    	// 	this.root();
+    	// 	return;
+    	// }
     	
         this.breadCrumbView.collection.reset();
         this.breadCrumbView.collection.add([
             {text:$.t('admin.home'), href:""},
-            {text:$.t('client.manage'), href:"manage/#admin/clients"}
+            {text:$.t('client.manage'), href:"manage/#user/clients"}
         ]);
         
-        this.updateSidebar('admin/clients');
+        this.updateSidebar('user/clients');
 
         var view = new ClientListView({model:this.clientList, stats: this.clientStats, systemScopeList: this.systemScopeList, whiteListList: this.whiteListList});
         
@@ -427,19 +427,19 @@ var AppRouter = Backbone.Router.extend({
 
     newClient:function() {
 
-    	if (!isAdmin()) {
-    		this.root();
-    		return;
-    	}
+    	// if (!isAdmin()) {
+    	// 	this.root();
+    	// 	return;
+    	// }
 
         this.breadCrumbView.collection.reset();
         this.breadCrumbView.collection.add([
             {text:$.t('admin.home'), href:""},
-            {text:$.t('client.manage'), href:"manage/#admin/clients"},
+            {text:$.t('client.manage'), href:"manage/#user/clients"},
             {text:$.t('client.client-form.new'), href:""}
         ]);
 
-        this.updateSidebar('admin/clients');
+        this.updateSidebar('user/clients');
 
         var client = new ClientModel();
     	
@@ -476,19 +476,19 @@ var AppRouter = Backbone.Router.extend({
 
     editClient:function(id) {
 
-    	if (!isAdmin()) {
-    		this.root();
-    		return;
-    	}
+    	// if (!isAdmin()) {
+    	// 	this.root();
+    	// 	return;
+    	// }
 
         this.breadCrumbView.collection.reset();
         this.breadCrumbView.collection.add([
             {text:$.t('admin.home'), href:""},
-            {text:$.t('client.manage'), href:"manage/#admin/clients"},
-            {text:$.t('client.client-form.edit'), href:"manage/#admin/client/" + id}
+            {text:$.t('client.manage'), href:"manage/#user/clients"},
+            {text:$.t('client.client-form.edit'), href:"manage/#user/client/" + id}
         ]);
 
-        this.updateSidebar('admin/clients');
+        this.updateSidebar('user/clients');
 
         var client = this.clientList.get(id);
         if (!client) {
