@@ -1,5 +1,6 @@
 /*******************************************************************************
  * Copyright 2017 The MITRE Corporation
+
  *   and the MIT Internet Trust Consortium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +39,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
@@ -72,14 +74,17 @@ import com.nimbusds.jwt.JWT;
 @Table(name = "client_details")
 @NamedQueries({
 	@NamedQuery(name = ClientDetailsEntity.QUERY_ALL, query = "SELECT c FROM ClientDetailsEntity c"),
-	@NamedQuery(name = ClientDetailsEntity.QUERY_BY_CLIENT_ID, query = "select c from ClientDetailsEntity c where c.clientId = :" + ClientDetailsEntity.PARAM_CLIENT_ID)
+	@NamedQuery(name = ClientDetailsEntity.QUERY_BY_CLIENT_ID, query = "select c from ClientDetailsEntity c where c.clientId = :" + ClientDetailsEntity.PARAM_CLIENT_ID),
+	@NamedQuery(name = ClientDetailsEntity.QUERY_BY_USER_ID, query = "select c from ClientDetailsEntity c where c.userId = :" + ClientDetailsEntity.PARAM_USER_ID)
 })
 public class ClientDetailsEntity implements ClientDetails {
 
 	public static final String QUERY_BY_CLIENT_ID = "ClientDetailsEntity.getByClientId";
 	public static final String QUERY_ALL = "ClientDetailsEntity.findAll";
+	public static final String QUERY_BY_USER_ID = "ClientDetailsEntity.getClientsByUserId";
 
 	public static final String PARAM_CLIENT_ID = "clientId";
+	public static final String PARAM_USER_ID = "userId";
 
 	private static final int DEFAULT_ID_TOKEN_VALIDITY_SECONDS = 600;
 
@@ -89,6 +94,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 	/** Fields from the OAuth2 Dynamic Registration Specification */
 	private String clientId = null; // client_id
+	private String userId = null; // client_id
 	private String clientSecret = null; // client_secret
 	private Set<String> redirectUris = new HashSet<>(); // redirect_uris
 	private String clientName; // client_name
@@ -1047,6 +1053,22 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	public void setDeviceCodeValiditySeconds(Integer deviceCodeValiditySeconds) {
 		this.deviceCodeValiditySeconds = deviceCodeValiditySeconds;
+	}
+
+	/**
+	 * @return the userId
+	 */
+	@Basic
+	@Column(name="user_id")
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId The OAuth2 user_id, must be unique to this user
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }

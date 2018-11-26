@@ -17,6 +17,7 @@
 package org.mitre.openid.connect.web;
 
 import java.lang.reflect.Type;
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.Collection;
 
@@ -28,7 +29,6 @@ import org.mitre.oauth2.web.AuthenticationUtilities;
 import org.mitre.openid.connect.model.CachedImage;
 import org.mitre.openid.connect.service.ClientLogoLoadingService;
 import org.mitre.openid.connect.view.ClientEntityViewForAdmins;
-import org.mitre.openid.connect.view.ClientEntityViewForUsers;
 import org.mitre.openid.connect.view.HttpCodeView;
 import org.mitre.openid.connect.view.JsonEntityView;
 import org.mitre.openid.connect.view.JsonErrorView;
@@ -153,9 +153,14 @@ public class ClientAPI {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String apiGetAllClients(Model model, Authentication auth) {
+	public String apiGetAllClients(Model model, Principal p, Authentication auth) {
 
-		Collection<ClientDetailsEntity> clients = clientService.getAllClients();
+		Collection<ClientDetailsEntity> clients;
+		if (AuthenticationUtilities.isAdmin(auth)) {
+			clients = clientService.getAllClients();
+		} else {
+			clients = clientService.getClientsByUserId(p.getName());
+		}
 		model.addAttribute(JsonEntityView.ENTITY, clients);
 
 		if (AuthenticationUtilities.isAdmin(auth)) {
@@ -240,15 +245,12 @@ public class ClientAPI {
 
 		client.setDynamicallyRegistered(false);
 
+		client.setUserId(auth.getName());
+
 		try {
 			ClientDetailsEntity newClient = clientService.saveNewClient(client);
 			m.addAttribute(JsonEntityView.ENTITY, newClient);
-
-			if (AuthenticationUtilities.isAdmin(auth)) {
-				return ClientEntityViewForAdmins.VIEWNAME;
-			} else {
-				return ClientEntityViewForUsers.VIEWNAME;
-			}
+			return ClientEntityViewForAdmins.VIEWNAME;
 		} catch (IllegalArgumentException e) {
 			logger.error("Unable to save client: {}", e.getMessage());
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
@@ -267,7 +269,7 @@ public class ClientAPI {
 	 */
 	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String apiUpdateClient(@PathVariable("id") Long id, @RequestBody String jsonString, Model m, Authentication auth) {
+	public String apiUpdateClient(@PathVariable("id") Long id, @RequestBody String jsonString, Model m, Principal p, Authentication auth) {
 
 		JsonObject json = null;
 		ClientDetailsEntity client = null;
@@ -295,6 +297,13 @@ public class ClientAPI {
 			logger.error("apiUpdateClient failed; client with id " + id + " could not be found.");
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Could not update client. The requested client with id " + id + "could not be found.");
+			return JsonErrorView.VIEWNAME;
+		}
+
+		if (oldClient.getUserId().equals(null) || (!oldClient.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+			logger.error("apiUpdateClient failed; user does not have privilege to update client with id: " + id);
+			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
+			m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to update client. The requested client with id " + id + " could not be modified from user.");
 			return JsonErrorView.VIEWNAME;
 		}
 
@@ -341,15 +350,12 @@ public class ClientAPI {
 
 		}
 
+		client.setUserId(oldClient.getUserId());
+
 		try {
 			ClientDetailsEntity newClient = clientService.updateClient(oldClient, client);
 			m.addAttribute(JsonEntityView.ENTITY, newClient);
-
-			if (AuthenticationUtilities.isAdmin(auth)) {
-				return ClientEntityViewForAdmins.VIEWNAME;
-			} else {
-				return ClientEntityViewForUsers.VIEWNAME;
-			}
+			return ClientEntityViewForAdmins.VIEWNAME;
 		} catch (IllegalArgumentException e) {
 			logger.error("Unable to save client: {}", e.getMessage());
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
@@ -366,7 +372,7 @@ public class ClientAPI {
 	 */
 	// @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public String apiDeleteClient(@PathVariable("id") Long id, ModelAndView modelAndView) {
+	public String apiDeleteClient(@PathVariable("id") Long id, ModelAndView modelAndView, Principal p, Authentication auth) {
 
 		ClientDetailsEntity client = clientService.getClientById(id);
 
@@ -374,6 +380,11 @@ public class ClientAPI {
 			logger.error("apiDeleteClient failed; client with id " + id + " could not be found.");
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Could not delete client. The requested client with id " + id + "could not be found.");
+			return JsonErrorView.VIEWNAME;
+		} else if (client.getUserId().equals(null) || (!client.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+			logger.error("apiDeleteClient failed; user does not have privilege to delete client with id: " + id);
+			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
+			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be deleted from user.");
 			return JsonErrorView.VIEWNAME;
 		} else {
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.OK);
@@ -391,7 +402,7 @@ public class ClientAPI {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String apiShowClient(@PathVariable("id") Long id, Model model, Authentication auth) {
+	public String apiShowClient(@PathVariable("id") Long id, Model model, Principal p, Authentication auth) {
 
 		ClientDetailsEntity client = clientService.getClientById(id);
 
@@ -400,15 +411,15 @@ public class ClientAPI {
 			model.addAttribute(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "The requested client with id " + id + " could not be found.");
 			return JsonErrorView.VIEWNAME;
+		} else if (client.getUserId().equals(null) || (!client.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+			logger.error("apiDeleteClient failed; user does not have privilege to access client with id: " + id);
+			model.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
+			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be accessed from user.");
+			return JsonErrorView.VIEWNAME;
 		}
 
 		model.addAttribute(JsonEntityView.ENTITY, client);
-
-		if (AuthenticationUtilities.isAdmin(auth)) {
-			return ClientEntityViewForAdmins.VIEWNAME;
-		} else {
-			return ClientEntityViewForUsers.VIEWNAME;
-		}
+		return ClientEntityViewForAdmins.VIEWNAME;
 	}
 	
 	/**

@@ -1,0 +1,1 @@
+ALTER TABLE client_details ADD user_id VARCHAR(256);

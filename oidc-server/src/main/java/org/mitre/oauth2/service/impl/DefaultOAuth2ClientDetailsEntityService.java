@@ -44,6 +44,7 @@ import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -483,6 +484,25 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 	@Override
 	public Collection<ClientDetailsEntity> getAllClients() {
 		return clientRepository.getAllClients();
+	}
+
+	/**
+	 * @param userId
+	 * @return
+	 * @see org.mitre.openid.connect.repository.OAuth2ClientRepository#getClientsByUserId(java.lang.String)
+	 */
+	@Override
+	public Collection<ClientDetailsEntity> getClientsByUserId(String userId) {
+		Collection<ClientDetailsEntity> all = clientRepository.getAllClients();
+		Collection<ClientDetailsEntity> results = Sets.newLinkedHashSet();
+
+		for (ClientDetailsEntity client : all) {
+			if (client.getUserId().equals(userId)) {
+				results.add(client);
+			}
+		}
+
+		return results;
 	}
 
 	/**
