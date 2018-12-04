@@ -300,7 +300,7 @@ public class ClientAPI {
 			return JsonErrorView.VIEWNAME;
 		}
 
-		if (oldClient.getUserId().equals(null) || (!oldClient.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+		if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(oldClient.getUserId())) {
 			logger.error("apiUpdateClient failed; user does not have privilege to update client with id: " + id);
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to update client. The requested client with id " + id + " could not be modified from user.");
@@ -381,7 +381,7 @@ public class ClientAPI {
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Could not delete client. The requested client with id " + id + "could not be found.");
 			return JsonErrorView.VIEWNAME;
-		} else if (client.getUserId().equals(null) || (!client.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+		} else if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(client.getUserId())) {
 			logger.error("apiDeleteClient failed; user does not have privilege to delete client with id: " + id);
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be deleted from user.");
@@ -411,7 +411,7 @@ public class ClientAPI {
 			model.addAttribute(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "The requested client with id " + id + " could not be found.");
 			return JsonErrorView.VIEWNAME;
-		} else if (client.getUserId().equals(null) || (!client.getUserId().equals(p.getName()) && !AuthenticationUtilities.isAdmin(auth))) {
+		} else if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(client.getUserId())) {
 			logger.error("apiDeleteClient failed; user does not have privilege to access client with id: " + id);
 			model.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be accessed from user.");
