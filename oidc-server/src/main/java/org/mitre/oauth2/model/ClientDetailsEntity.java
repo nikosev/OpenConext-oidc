@@ -94,7 +94,7 @@ public class ClientDetailsEntity implements ClientDetails {
 
 	/** Fields from the OAuth2 Dynamic Registration Specification */
 	private String clientId = null; // client_id
-	private String userId = null; // client_id
+	private Set<String> userId; // client_id
 	private String clientSecret = null; // client_secret
 	private Set<String> redirectUris = new HashSet<>(); // redirect_uris
 	private String clientName; // client_name
@@ -1058,16 +1058,20 @@ public class ClientDetailsEntity implements ClientDetails {
 	/**
 	 * @return the userId
 	 */
-	@Basic
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(
+			name="client_user_id",
+			joinColumns=@JoinColumn(name="owner_id")
+			)
 	@Column(name="user_id")
-	public String getUserId() {
+	public Set<String> getUserId() {
 		return userId;
 	}
 
 	/**
-	 * @param userId The OAuth2 user_id, must be unique to this user
+	 * @param userId The OAuth2 user_id
 	 */
-	public void setUserId(String userId) {
+	public void setUserId(Set<String> userId) {
 		this.userId = userId;
 	}
 

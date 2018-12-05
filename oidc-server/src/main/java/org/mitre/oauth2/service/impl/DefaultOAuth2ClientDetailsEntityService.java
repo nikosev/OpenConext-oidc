@@ -497,7 +497,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 		Collection<ClientDetailsEntity> results = Sets.newLinkedHashSet();
 
 		for (ClientDetailsEntity client : all) {
-			if (userId.equals(client.getUserId())) {
+			if (client.getUserId().contains(userId)) {
 				results.add(client);
 			}
 		}

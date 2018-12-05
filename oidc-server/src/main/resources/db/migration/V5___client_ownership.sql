@@ -1,1 +1,4 @@
-ALTER TABLE client_details ADD user_id VARCHAR(256);
+CREATE TABLE IF NOT EXISTS client_user_id (
+	owner_id BIGINT,
+	user_id VARCHAR(256)
+);

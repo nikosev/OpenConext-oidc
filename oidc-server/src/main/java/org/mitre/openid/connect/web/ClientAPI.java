@@ -20,6 +20,8 @@ import java.lang.reflect.Type;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.mitre.oauth2.model.ClientDetailsEntity;
 import org.mitre.oauth2.model.ClientDetailsEntity.AuthMethod;
@@ -83,6 +85,8 @@ public class ClientAPI {
 	private ClientLogoLoadingService clientLogoLoadingService;
 
 	private JsonParser parser = new JsonParser();
+
+	Set<String> userId = new HashSet<>();
 
 	private Gson gson = new GsonBuilder()
 	.serializeNulls()
@@ -243,9 +247,11 @@ public class ClientAPI {
 
 		}
 
+		userId.clear(); ;
+		userId.add(auth.getName());
+		client.setUserId(userId);
 		client.setDynamicallyRegistered(false);
 
-		client.setUserId(auth.getName());
 
 		try {
 			ClientDetailsEntity newClient = clientService.saveNewClient(client);
@@ -300,7 +306,7 @@ public class ClientAPI {
 			return JsonErrorView.VIEWNAME;
 		}
 
-		if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(oldClient.getUserId())) {
+		if (!AuthenticationUtilities.isAdmin(auth) && !oldClient.getUserId().contains(p.getName())) {
 			logger.error("apiUpdateClient failed; user does not have privilege to update client with id: " + id);
 			m.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to update client. The requested client with id " + id + " could not be modified from user.");
@@ -381,7 +387,7 @@ public class ClientAPI {
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Could not delete client. The requested client with id " + id + "could not be found.");
 			return JsonErrorView.VIEWNAME;
-		} else if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(client.getUserId())) {
+		} else if (!AuthenticationUtilities.isAdmin(auth) && !client.getUserId().contains(p.getName())) {
 			logger.error("apiDeleteClient failed; user does not have privilege to delete client with id: " + id);
 			modelAndView.getModelMap().put(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			modelAndView.getModelMap().put(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be deleted from user.");
@@ -411,7 +417,7 @@ public class ClientAPI {
 			model.addAttribute(HttpCodeView.CODE, HttpStatus.NOT_FOUND);
 			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "The requested client with id " + id + " could not be found.");
 			return JsonErrorView.VIEWNAME;
-		} else if (!AuthenticationUtilities.isAdmin(auth) && !p.getName().equals(client.getUserId())) {
+		} else if (!AuthenticationUtilities.isAdmin(auth) && !client.getUserId().contains(p.getName())) {
 			logger.error("apiDeleteClient failed; user does not have privilege to access client with id: " + id);
 			model.addAttribute(HttpCodeView.CODE, HttpStatus.FORBIDDEN);
 			model.addAttribute(JsonErrorView.ERROR_MESSAGE, "Access denied to delete client. The requested client with id " + id + " could not be accessed from user.");
