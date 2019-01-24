@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package oauth2.token;
+package org.mitre.oauth2.token;
 
 import static java.lang.String.format;
 
