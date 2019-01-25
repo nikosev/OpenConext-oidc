@@ -102,6 +102,7 @@
     "urn:ietf:params:oauth:grant-type:jwt-bearer",
     "client_credentials",
     "urn:ietf:params:oauth:grant-type:token-exchange",
+    "urn:ietf:params:oauth:grant-type:device_code",
     "urn:ietf:params:oauth:grant_type:redelegate"
   ],
   "revocation_endpoint": "@configuration_end_point@revoke",
@@ -129,6 +130,7 @@
   ],
   "jwks_uri": "@configuration_end_point@jwk",
   "registration_endpoint": "@configuration_end_point@register",
+  "device_authorization_endpoint": "@configuration_end_point@devicecode",
   "subject_types_supported": [
     "pairwise"
   ],

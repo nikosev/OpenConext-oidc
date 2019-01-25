@@ -87,7 +87,7 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 	private LoadingCache<String, List<String>> sectorRedirects = CacheBuilder.newBuilder()
 			.expireAfterAccess(1, TimeUnit.HOURS)
 			.maximumSize(100)
-			.build(new SectorIdentifierLoader(HttpClientBuilder.create().useSystemProperties().build()));
+			.build(new SectorIdentifierLoader());
 
 	@Override
 	public ClientDetailsEntity saveNewClient(ClientDetailsEntity client) {
@@ -515,14 +515,10 @@ public class DefaultOAuth2ClientDetailsEntityService implements ClientDetailsEnt
 	 *
 	 */
 	private class SectorIdentifierLoader extends CacheLoader<String, List<String>> {
-		private HttpComponentsClientHttpRequestFactory httpFactory;
-		private RestTemplate restTemplate;
+		private HttpClient httpClient = HttpClientBuilder.create().useSystemProperties().build();
+		private HttpComponentsClientHttpRequestFactory httpFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+		private RestTemplate restTemplate = new RestTemplate(httpFactory);
 		private JsonParser parser = new JsonParser();
-
-		SectorIdentifierLoader(HttpClient httpClient) {
-			this.httpFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-			this.restTemplate = new RestTemplate(httpFactory);
-		}
 
 		@Override
 		public List<String> load(String key) throws Exception {

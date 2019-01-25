@@ -62,6 +62,8 @@ public class ConfigurationPropertiesBean {
 
 	private boolean heartMode = false;
 
+	private boolean allowCompleteDeviceCodeUri = false;
+
 	private boolean claimEduPersonEntitlement = true;
 
 	private boolean claimEduPersonEntitlementOld = true;
@@ -340,6 +342,20 @@ public class ConfigurationPropertiesBean {
 	 */
 	public void setHeartMode(boolean heartMode) {
 		this.heartMode = heartMode;
+	}
+
+	/**
+	 * @return the allowCompleteDeviceCodeUri
+	 */
+	public boolean isAllowCompleteDeviceCodeUri() {
+		return allowCompleteDeviceCodeUri;
+	}
+
+	/**
+	 * @param allowCompleteDeviceCodeUri the allowCompleteDeviceCodeUri to set
+	 */
+	public void setAllowCompleteDeviceCodeUri(boolean allowCompleteDeviceCodeUri) {
+		this.allowCompleteDeviceCodeUri = allowCompleteDeviceCodeUri;
 	}
 
 	/**

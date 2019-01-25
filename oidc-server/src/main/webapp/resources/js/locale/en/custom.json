@@ -9,7 +9,9 @@
             "id-token-duration-error": "The duration of id token is out of range.",
             "access-token-timeout-help": "Enter this time in seconds, minutes, or hours (Max value is 1000000 seconds (11.5 days)).",
             "id-token-timeout-help": "Enter this time in seconds, minutes, or hours (Max value is 86400 seconds (24 hours)).",
-            "refresh-token-timeout-help": "Enter this time in seconds, minutes, or hours (Max value is 34128000 seconds (13 months))."
+            "refresh-token-timeout-help": "Enter this time in seconds, minutes, or hours (Max value is 34128000 seconds (13 months)).",
+            "device": "device",
+            "device-code-timeout": "Device Code Timeout"
         }
     },
     "common": {
@@ -65,5 +67,24 @@
                 "scope": "scope"
             }
         }
+    },
+    "device": {
+		"request_code": {
+			"title": "Enter Code",
+			"header": "Enter Code",
+			"description": "Enter the code displayed on your device into the box below and press submit",
+			"submit": "Submit"
+		},
+		"error": {
+			"noUserCode": "The code that you entered was not found.",
+			"expiredUserCode": "The code that you entered has expired. Return to your device and request a new code.",
+			"userCodeAlreadyApproved": "The code that you entered has already been used.",
+			"userCodeMismatch": "There was an error processing the code you entered. Try refreshing the page and returning to your device to request a new code.",
+			"error": "There was an error processing the code you entered. Return to your device and request a new code."
+		},
+		"approve": {
+			"approved": "The device has been approved.",
+			"notApproved": "The device has not been approved."
+		}
     }
 }

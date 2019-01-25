@@ -461,6 +461,7 @@ var AppRouter = Backbone.Router.extend({
 				refreshTokenValiditySeconds:getDefaultRefreshTokenLifeTime(),
 				accessTokenValiditySeconds:getDefaultAccessTokenLifeTime(),
 				idTokenValiditySeconds:getDefaultIdTokenLifeTime(),
+				deviceCodeValiditySeconds:30*60,
 				grantTypes: ["authorization_code"],
 				responseTypes: ["code"],
 				subjectType: "PUBLIC",

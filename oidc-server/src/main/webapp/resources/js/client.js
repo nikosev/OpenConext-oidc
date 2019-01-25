@@ -90,7 +90,8 @@ var ClientModel = Backbone.Model.extend({
         clearAccessTokensOnRefresh:true,
         dynamicallyRegistered:false,
         allowIntrospection:false,
-        idTokenValiditySeconds: getDefaultIdTokenLifeTime(),
+		idTokenValiditySeconds: getDefaultIdTokenLifeTime(),
+		deviceCodeValiditySeconds: null,
         createdAt:null,
 
         allowRefresh:false,
@@ -803,6 +804,7 @@ var ClientFormView = Backbone.View.extend({
     	'client_credentials': 'client_credentials',
 		'redelegate': 'urn:ietf:params:oauth:grant_type:redelegate',
 		'token-exchange': 'urn:ietf:params:oauth:grant-type:token-exchange',
+		'device': 'urn:ietf:params:oauth:grant-type:device_code',
     	'refresh_token': 'refresh_token'
     },
     
@@ -920,6 +922,8 @@ var ClientFormView = Backbone.View.extend({
 
 		}
 
+		var deviceCodeValiditySeconds = this.getFormTokenNumberValue($('#deviceCodeValidityTime input[type=text]').val(), $('#deviceCodeValidityTime select').val());
+
         var refreshTokenValiditySeconds = null;
         if ($('#allowRefresh').is(':checked')) {
 
@@ -1021,7 +1025,8 @@ var ClientFormView = Backbone.View.extend({
             grantTypes: grantTypes,
             accessTokenValiditySeconds: accessTokenValiditySeconds,
             refreshTokenValiditySeconds: refreshTokenValiditySeconds,
-            idTokenValiditySeconds: idTokenValiditySeconds,
+			idTokenValiditySeconds: idTokenValiditySeconds,
+			deviceCodeValiditySeconds: deviceCodeValiditySeconds,
             allowRefresh: $('#allowRefresh').is(':checked'),
             allowIntrospection: $('#allowIntrospection input').is(':checked'), // <-- And here? --^
             scope: scopes,
