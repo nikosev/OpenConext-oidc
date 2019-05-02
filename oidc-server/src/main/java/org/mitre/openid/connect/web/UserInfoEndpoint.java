@@ -97,7 +97,7 @@ public class UserInfoEndpoint {
 		// 	model.addAttribute(UserInfoView.REQUESTED_CLAIMS, claimsRequestJsonString);
 		// }
 
-		model.addAttribute(UserInfoView.USER_INFO, userInfo);
+		model.addAttribute(UserInfoView.USER_INFO, userInfo); // nikosev: TODO: filter projectIds/entitlements on userInfo object
 
 		// content negotiation
 
