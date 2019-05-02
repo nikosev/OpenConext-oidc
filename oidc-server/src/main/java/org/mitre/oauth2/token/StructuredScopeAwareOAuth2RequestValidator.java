@@ -51,12 +51,8 @@ public class StructuredScopeAwareOAuth2RequestValidator implements OAuth2Request
 				if (!scopeService.scopesMatch(clientScopes, requestedScopes)) {
 					throw new InvalidScopeException("Invalid scope; requested:" + requestedScopes, clientScopes);
 				}
-			} else {
-				throw new InvalidScopeException("Client has no scopes defined");
 			}
-		} else {
-            throw new InvalidScopeException("No scopes have been requested");
-        }
+		}
 	}
 
 	@Override
