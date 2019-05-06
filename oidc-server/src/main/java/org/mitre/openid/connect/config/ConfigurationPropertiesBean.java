@@ -82,6 +82,8 @@ public class ConfigurationPropertiesBean {
 
 	private boolean adminDevelopInstance = false;
 
+	private List<String> parametricScopes = Lists.newArrayList("");
+
 	public ConfigurationPropertiesBean() {
 
 	}
@@ -481,5 +483,19 @@ public class ConfigurationPropertiesBean {
 	 */
 	public void setAdminDevelopInstance(boolean adminDevelopInstance) {
 		this.adminDevelopInstance = adminDevelopInstance;
+	}
+
+	/**
+	 * @return the parametricScopes
+	 */
+	public List<String> getParametricScopes() {
+		return parametricScopes;
+	}
+
+	/**
+	 * @param parametricScopes the parametricScopes to set
+	 */
+	public void setParametricScopes(List<String> parametricScopes) {
+		this.parametricScopes = parametricScopes;
 	}
 }

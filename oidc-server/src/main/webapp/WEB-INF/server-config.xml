@@ -109,6 +109,9 @@
 		<!-- This property sets the sub the user should contain to become an admin" -->
 		<property name="adminDevelopInstance" value="${admin.develop.instance}" />
 
+		<!-- This property sets the sub the user should contain to become an admin" -->
+		<property name="parametricScopes" value="${parametric.scopes}" />
+
 	</bean>
 	
 </beans>

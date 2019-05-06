@@ -16,7 +16,10 @@
  *******************************************************************************/
 package org.mitre.openid.connect.web;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.mitre.oauth2.model.ClientDetailsEntity;
 import org.mitre.oauth2.service.ClientDetailsEntityService;
@@ -26,6 +29,7 @@ import org.mitre.openid.connect.service.UserInfoService;
 import org.mitre.openid.connect.view.HttpCodeView;
 import org.mitre.openid.connect.view.UserInfoJWTView;
 import org.mitre.openid.connect.view.UserInfoView;
+import org.mitre.util.AttributeFiltering;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import oidc.model.FederatedUserInfo;
+import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 
 import com.google.common.base.Strings;
 
@@ -59,7 +66,10 @@ public class UserInfoEndpoint {
 	private UserInfoService userInfoService;
 
 	@Autowired
-	private ClientDetailsEntityService clientService;
+    private ClientDetailsEntityService clientService;
+
+    @Autowired
+    private ConfigurationPropertiesBean config;
 
 	/**
 	 * Logger for this class
@@ -97,6 +107,10 @@ public class UserInfoEndpoint {
 		if (!Strings.isNullOrEmpty(claimsRequestJsonString)) {
 			model.addAttribute(UserInfoView.REQUESTED_CLAIMS, claimsRequestJsonString);
 		}
+
+        FederatedUserInfo federatedUserInfo = (FederatedUserInfo) userInfo;
+		Set<String> originalAttributes = new HashSet<String>(federatedUserInfo.getEduPersonEntitlements());
+		federatedUserInfo.setEduPersonEntitlements(AttributeFiltering.filterAttributes("eduperson_entitlement:", originalAttributes, auth.getOAuth2Request().getScope(), config.getParametricScopes()));
 
 		model.addAttribute(UserInfoView.USER_INFO, userInfo); // nikosev: TODO: filter projectIds/entitlements on userInfo object
 
@@ -137,6 +151,6 @@ public class UserInfoEndpoint {
 			return UserInfoView.VIEWNAME;
 		}
 
-	}
+    }
 
 }
