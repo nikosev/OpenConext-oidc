@@ -23,9 +23,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.mitre.util.AttributeFiltering;
 import org.mitre.oauth2.model.SystemScope;
 import org.mitre.oauth2.repository.SystemScopeRepository;
 import org.mitre.oauth2.service.SystemScopeService;
+import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.context.annotation.Primary;
@@ -50,6 +52,9 @@ public class DefaultSystemScopeService implements SystemScopeService {
 
 	@Autowired
 	private SystemScopeRepository repository;
+
+	@Autowired
+	private ConfigurationPropertiesBean config;
 
 	private Predicate<SystemScope> isDefault = new Predicate<SystemScope>() {
 		@Override
@@ -189,7 +194,11 @@ public class DefaultSystemScopeService implements SystemScopeService {
 		for (SystemScope actScope : act) {
 			// first check to see if there's an exact match
 			if (!ex.contains(actScope)) {
-				return false;
+				if (AttributeFiltering.isParametricScope(actScope.getValue(), config.getParametricScopes())) {
+					// if we did find an exact match, we need to check the rest
+				} else {
+					return false;
+				}
 			} else {
 				// if we did find an exact match, we need to check the rest
 			}
