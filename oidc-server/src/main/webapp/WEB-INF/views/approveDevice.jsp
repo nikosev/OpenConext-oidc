@@ -127,7 +127,7 @@
 											<li><spring:message code="approve.home_page"/>: <a href="<c:out value="${ client.clientUri }" />"><c:out value="${ client.clientUri }" /></a></li>
 										</c:if>
 										<c:if test="${ not empty client.policyUri }">
-											<li><spring:message code="Policy"/>: <a href="<c:out value="${ client.policyUri }" />"><c:out value="${ client.policyUri }" /></a></li>
+											<li><spring:message code="approve.policy"/>: <a href="<c:out value="${ client.policyUri }" />"><c:out value="${ client.policyUri }" /></a></li>
 										</c:if>
 										<c:if test="${ not empty client.tosUri }">
 											<li><spring:message code="approve.terms"/>: <a href="<c:out value="${ client.tosUri }" />"><c:out value="${ client.tosUri }" /></a></li>
