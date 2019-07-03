@@ -103,7 +103,8 @@
     "client_credentials",
     "urn:ietf:params:oauth:grant-type:token-exchange",
     "urn:ietf:params:oauth:grant-type:device_code",
-    "urn:ietf:params:oauth:grant_type:redelegate"
+    "urn:ietf:params:oauth:grant_type:redelegate",
+    "refresh_token"
   ],
   "revocation_endpoint": "@configuration_end_point@revoke",
   "userinfo_endpoint": "@configuration_end_point@userinfo",
