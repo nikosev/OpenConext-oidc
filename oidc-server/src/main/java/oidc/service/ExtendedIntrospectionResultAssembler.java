@@ -43,7 +43,7 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             FederatedUserInfo federatedUserInfo = (FederatedUserInfo) userInfo;
             Set<String> originalAttributes = new HashSet<String>(federatedUserInfo.getEduPersonEntitlements());
             Set<String> filteredAttributes = new HashSet<String>();
-            filteredAttributes = AttributeFiltering.filterAttributes("eduperson_entitlement:", originalAttributes, scopeSet, config.getParametricScopes());
+            filteredAttributes = AttributeFiltering.filterAttributes("eduperson_entitlement", originalAttributes, scopeSet, config.getParametricScopes());
             result.put("iss", config.getIssuer());
             result.put("authenticating_authority", federatedUserInfo.getAuthenticatingAuthority());
             result.put("acr", federatedUserInfo.getAcr());

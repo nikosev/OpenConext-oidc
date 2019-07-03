@@ -109,7 +109,7 @@ public class UserInfoEndpoint {
 
         FederatedUserInfo federatedUserInfo = (FederatedUserInfo) userInfo;
 		Set<String> originalAttributes = new HashSet<String>(federatedUserInfo.getEduPersonEntitlements());
-		federatedUserInfo.setEduPersonEntitlements(AttributeFiltering.filterAttributes("eduperson_entitlement:", originalAttributes, auth.getOAuth2Request().getScope(), config.getParametricScopes()));
+		federatedUserInfo.setEduPersonEntitlements(AttributeFiltering.filterAttributes("eduperson_entitlement", originalAttributes, auth.getOAuth2Request().getScope(), config.getParametricScopes()));
 
 		model.addAttribute(UserInfoView.USER_INFO, userInfo); // nikosev: TODO: filter projectIds/entitlements on userInfo object
 
