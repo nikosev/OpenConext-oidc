@@ -20,20 +20,23 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 public final class AttributeFiltering {
 
+    // Define delimiter including escapes
+    private static final String DELIMITER = "\\?value=";
+
     /**
 	 * Logger for this class
 	 */
     private static final Logger logger = LoggerFactory.getLogger(AttributeFiltering.class);
 
 	public static boolean isParametricScope(String scope, List<String> parametricScopes) {
-		Pattern parametricScopePattern = Pattern.compile(".+?(?=:)");
+		Pattern parametricScopePattern = Pattern.compile(".+?(?=" + DELIMITER + ")");
         Matcher matchedValue;
         Set<String> parScopes = new HashSet<String>(parametricScopes);
         
         matchedValue = parametricScopePattern.matcher(scope);
         if (matchedValue.find()) {
             if (parScopes.contains(matchedValue.group(0))) {
-                logger.info("AttributeFiltering: " + scope + "is a parametric scope.");
+                logger.debug("AttributeFiltering: " + scope + " is a parametric scope.");
                 return true;
             } else {
                 return false;
@@ -44,7 +47,7 @@ public final class AttributeFiltering {
     }
 
     public static boolean hasParametricScopes(String scope, Set<String> requestedScopes) {
-		Pattern parametricScopePattern = Pattern.compile(".+?:");
+		Pattern parametricScopePattern = Pattern.compile(".+?" + DELIMITER);
         Matcher matchedValue;
         
         for (String reqScope : requestedScopes) {
@@ -57,7 +60,7 @@ public final class AttributeFiltering {
     }
 
     public static Set<String> getGroupParametricScope(String scope, Set<String> requestedScopes) {
-        Pattern parametricScopePattern = Pattern.compile(".+?:");
+        Pattern parametricScopePattern = Pattern.compile(".+?" + DELIMITER);
         Matcher matchedValue;
         Set<String> result = new HashSet<String>();
         
@@ -76,6 +79,8 @@ public final class AttributeFiltering {
 
     public static Set<String> filterAttributes(String scope, Set<String> attributeValues, Set<String> requestedScopes, List<String> parametricScopes) {
         Set<String> filters = new HashSet<String>();
+        // Remove escape character from delimiter before add in the trageted scope
+        scope += DELIMITER.replace("\\", "");
 
         if (isParametricScope(scope, parametricScopes) && hasParametricScopes(scope, requestedScopes)) {
             filters = getGroupParametricScope(scope, requestedScopes);
