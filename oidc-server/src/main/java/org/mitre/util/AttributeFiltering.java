@@ -21,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 public final class AttributeFiltering {
 
     // Define delimiter including escapes
-    private static final String DELIMITER = "\\?value=";
+    public static final String DELIMITER = "\\?value=";
 
     /**
 	 * Logger for this class
