@@ -212,8 +212,8 @@ public class FederatedUserInfo extends DefaultUserInfo {
         ", eduPersonUniqueId='" + eduPersonUniqueId + '\'' +
         ", eduPersonPrincipalName='" + eduPersonPrincipalName + '\'' +
         ", eduPersonTargetedId='" + eduPersonTargetedId + '\'' +
-        ", eduPersonEntitlement=" + eduPersonEntitlements + '\'' +
-        ", eduPersonScopedAffiliation=" + eduPersonScopedAffiliations + '\'' +
+        ", eduPersonEntitlement='" + eduPersonEntitlements + '\'' +
+        ", eduPersonScopedAffiliation='" + eduPersonScopedAffiliations + '\'' +
         ", eduPersonAssurance='" + eduPersonAssurance + '\'' +
         ", preferredUsername='" + preferredUsername + '\'' +
         ", name='" + getName() + '\'' +
