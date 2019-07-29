@@ -75,7 +75,8 @@ public class JsonEntityView extends AbstractView {
 
 	})
 	.serializeNulls()
-	.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+    .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+    .disableHtmlEscaping()
 	.create();
 
 	@Override
