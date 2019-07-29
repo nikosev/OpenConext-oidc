@@ -81,7 +81,9 @@ public class UserInfoView extends AbstractView {
 			return false;
 		}
 
-	}).create();
+	})
+	.disableHtmlEscaping()
+	.create();
 
 	/*
 	 * (non-Javadoc)
@@ -99,6 +101,7 @@ public class UserInfoView extends AbstractView {
 		Set<String> scope = (Set<String>) model.get(SCOPE);
 
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setCharacterEncoding("UTF-8");
 
 
 		JsonObject authorizedClaims = null;
