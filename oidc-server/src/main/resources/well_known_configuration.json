@@ -124,6 +124,10 @@
   ],
   "op_tos_uri": "@configuration_end_point@about",
   "require_request_uri_registration": false,
+  "code_challenge_methods_supported": [
+    "plain",
+    "S256"
+  ],
   "id_token_encryption_alg_values_supported": [
     "RSA-OAEP",
     "RSA-OAEP-256",
