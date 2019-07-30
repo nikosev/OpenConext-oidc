@@ -1,6 +1,7 @@
 {
     "client": {
         "client-form": {
+            "code-challenge-method": "Proof Key for Code Exchange (PKCE) Code Challenge Method",
             "client-id-help": "Unique identifier. If you leave this blank it will be automatically generated.",
             "token-exchange": "token exchange",
             "timeout-bound-error": "Invalid timeout value",
