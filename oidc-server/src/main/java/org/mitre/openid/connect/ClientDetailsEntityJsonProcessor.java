@@ -27,6 +27,7 @@ import static org.mitre.oauth2.model.RegisteredClientFields.CLIENT_NAME;
 import static org.mitre.oauth2.model.RegisteredClientFields.CLIENT_SECRET;
 import static org.mitre.oauth2.model.RegisteredClientFields.CLIENT_SECRET_EXPIRES_AT;
 import static org.mitre.oauth2.model.RegisteredClientFields.CLIENT_URI;
+import static org.mitre.oauth2.model.RegisteredClientFields.CODE_CHALLENGE_METHOD;
 import static org.mitre.oauth2.model.RegisteredClientFields.CONTACTS;
 import static org.mitre.oauth2.model.RegisteredClientFields.DEFAULT_ACR_VALUES;
 import static org.mitre.oauth2.model.RegisteredClientFields.DEFAULT_MAX_AGE;
@@ -62,6 +63,7 @@ import static org.mitre.util.JsonUtils.getAsDate;
 import static org.mitre.util.JsonUtils.getAsJweAlgorithm;
 import static org.mitre.util.JsonUtils.getAsJweEncryptionMethod;
 import static org.mitre.util.JsonUtils.getAsJwsAlgorithm;
+import static org.mitre.util.JsonUtils.getAsPkceAlgorithm;
 import static org.mitre.util.JsonUtils.getAsString;
 import static org.mitre.util.JsonUtils.getAsStringSet;
 
@@ -77,11 +79,14 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTParser;
 
 /**
  * Utility class to handle the parsing and serialization of ClientDetails objects.
@@ -193,7 +198,9 @@ public class ClientDetailsEntityJsonProcessor {
 			c.setPostLogoutRedirectUris(getAsStringSet(o, POST_LOGOUT_REDIRECT_URIS));
 			c.setRequestUris(getAsStringSet(o, REQUEST_URIS));
 
-			c.setClaimsRedirectUris(getAsStringSet(o, CLAIMS_REDIRECT_URIS));
+            c.setClaimsRedirectUris(getAsStringSet(o, CLAIMS_REDIRECT_URIS));
+            
+            c.setCodeChallengeMethod(getAsPkceAlgorithm(o, CODE_CHALLENGE_METHOD));
 			
 			return c;
 		} else {
@@ -316,7 +323,9 @@ public class ClientDetailsEntityJsonProcessor {
 			o.add(POST_LOGOUT_REDIRECT_URIS, getAsArray(c.getPostLogoutRedirectUris()));
 			o.add(REQUEST_URIS, getAsArray(c.getRequestUris()));
 			
-			o.add(CLAIMS_REDIRECT_URIS, getAsArray(c.getClaimsRedirectUris()));
+            o.add(CLAIMS_REDIRECT_URIS, getAsArray(c.getClaimsRedirectUris()));
+            
+            o.addProperty(CODE_CHALLENGE_METHOD, c.getCodeChallengeMethod() != null ? c.getCodeChallengeMethod().getName() : null);
 			
 			return o;
 		}

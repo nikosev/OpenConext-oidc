@@ -22,6 +22,7 @@ import java.util.Collection;
 
 import org.mitre.oauth2.model.ClientDetailsEntity;
 import org.mitre.oauth2.model.ClientDetailsEntity.AuthMethod;
+import org.mitre.oauth2.model.PKCEAlgorithm;
 import org.mitre.oauth2.service.ClientDetailsEntityService;
 import org.mitre.oauth2.web.AuthenticationUtilities;
 import org.mitre.openid.connect.model.CachedImage;
@@ -124,6 +125,15 @@ public class ClientAPI {
 				} catch (ParseException e) {
 					return null;
 				}
+			} else {
+				return null;
+			}
+		}
+    })
+    .registerTypeAdapter(PKCEAlgorithm.class, new JsonDeserializer<Algorithm>() {
+		public PKCEAlgorithm deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+			if (json.isJsonPrimitive()) {
+				return PKCEAlgorithm.parse(json.getAsString());
 			} else {
 				return null;
 			}
