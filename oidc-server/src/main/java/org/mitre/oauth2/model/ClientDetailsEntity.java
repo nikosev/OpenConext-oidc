@@ -52,6 +52,7 @@ import org.mitre.oauth2.model.convert.JWEEncryptionMethodStringConverter;
 import org.mitre.oauth2.model.convert.JWKSetStringConverter;
 import org.mitre.oauth2.model.convert.JWSAlgorithmStringConverter;
 import org.mitre.oauth2.model.convert.JWTStringConverter;
+import org.mitre.oauth2.model.convert.PKCEAlgorithmStringConverter;
 import org.mitre.oauth2.model.convert.SimpleGrantedAuthorityStringConverter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -151,6 +152,9 @@ public class ClientDetailsEntity implements ClientDetails {
 	
 	/** Software statement **/
 	private JWT softwareStatement;
+
+	/** PKCE **/
+	private PKCEAlgorithm codeChallengeMethod;
 
 	public enum AuthMethod {
 		SECRET_POST("client_secret_post"),
@@ -1010,6 +1014,23 @@ public class ClientDetailsEntity implements ClientDetails {
 	 */
 	public void setSoftwareStatement(JWT softwareStatement) {
 		this.softwareStatement = softwareStatement;
+	}
+
+	/**
+	 * @return the codeChallengeMethod
+	 */
+	@Basic
+	@Column(name = "code_challenge_method")
+	@Convert(converter = PKCEAlgorithmStringConverter.class)
+	public PKCEAlgorithm getCodeChallengeMethod() {
+		return codeChallengeMethod;
+	}
+
+	/**
+	 * @param codeChallengeMethod the codeChallengeMethod to set
+	 */
+	public void setCodeChallengeMethod(PKCEAlgorithm codeChallengeMethod) {
+		this.codeChallengeMethod = codeChallengeMethod;
 	}
 
 	/**

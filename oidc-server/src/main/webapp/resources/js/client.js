@@ -75,7 +75,9 @@ var ClientModel = Backbone.Model.extend({
         initiateLoginUri:"",
         postLogoutRedirectUris:[],
         
-        requestUris:[],
+		requestUris:[],
+		
+		codeChallengeMethod:null,
         
         authorities:[],
         accessTokenValiditySeconds: getDefaultAccessTokenLifeTime(),
@@ -1056,7 +1058,9 @@ var ClientFormView = Backbone.View.extend({
             userInfoEncryptedResponseEnc: this.defaultToNull($('#userInfoEncryptedResponseEnc select').val()),
             idTokenSignedResponseAlg: this.defaultToNull($('#idTokenSignedResponseAlg select').val()),
             idTokenEncryptedResponseAlg: this.defaultToNull($('#idTokenEncryptedResponseAlg select').val()),
-            idTokenEncryptedResponseEnc: this.defaultToNull($('#idTokenEncryptedResponseEnc select').val()),
+			idTokenEncryptedResponseEnc: this.defaultToNull($('#idTokenEncryptedResponseEnc select').val()),
+			tokenEndpointAuthSigningAlg: this.defaultToNull($('#tokenEndpointAuthSigningAlg select').val()),
+            codeChallengeMethod: this.defaultToNull($('#codeChallengeMethod select').val()),
             tokenEndpointAuthSigningAlg: this.defaultToNull($('#tokenEndpointAuthSigningAlg select').val())
 		};
 
