@@ -167,11 +167,7 @@ public class ClientAPI {
 		}
 		model.addAttribute(JsonEntityView.ENTITY, clients);
 
-		if (AuthenticationUtilities.isAdmin(auth)) {
-			return ClientEntityViewForAdmins.VIEWNAME;
-		} else {
-			return ClientEntityViewForUsers.VIEWNAME;
-		}
+		return ClientEntityViewForAdmins.VIEWNAME;
 	}
 
 	/**
