@@ -30,6 +30,7 @@ import org.mitre.openid.connect.view.HttpCodeView;
 import org.mitre.openid.connect.view.UserInfoJWTView;
 import org.mitre.openid.connect.view.UserInfoView;
 import org.mitre.util.AttributeFiltering;
+import org.mitre.util.OpenstackProjectIdFiltering;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oidc.model.FederatedUserInfo;
+import oidc.model.DefaultOpenstackProjectId;
+
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 
 import com.google.common.base.Strings;
@@ -70,6 +73,8 @@ public class UserInfoEndpoint {
 
     @Autowired
     private ConfigurationPropertiesBean config;
+
+	private DefaultOpenstackProjectId projectId = new DefaultOpenstackProjectId();
 
 	/**
 	 * Logger for this class
@@ -112,7 +117,11 @@ public class UserInfoEndpoint {
 		Set<String> originalAttributes = new HashSet<String>(federatedUserInfo.getEduPersonEntitlements());
 		federatedUserInfo.setEduPersonEntitlements(AttributeFiltering.filterAttributes("eduperson_entitlement", originalAttributes, auth.getOAuth2Request().getScope(), config.getParametricScopes()));
 
-		model.addAttribute(UserInfoView.USER_INFO, userInfo); // nikosev: TODO: filter projectIds/entitlements on userInfo object
+		Set<DefaultOpenstackProjectId> openstackProjectIds = new HashSet<DefaultOpenstackProjectId>(OpenstackProjectIdFiltering.createDynamincClaims(originalAttributes, auth.getOAuth2Request().getScope(), config.getParametricScopes(), federatedUserInfo.getSub()));
+
+		federatedUserInfo.setOpenstackProjectId(openstackProjectIds);
+
+		model.addAttribute(UserInfoView.USER_INFO, federatedUserInfo);
 
 		// content negotiation
 

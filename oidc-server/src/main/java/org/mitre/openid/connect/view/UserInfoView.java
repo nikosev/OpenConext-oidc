@@ -36,6 +36,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.servlet.view.AbstractView;
 
+import oidc.model.FederatedUserInfo;
+import oidc.model.OpenstackProjectId;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -87,7 +90,7 @@ public class UserInfoView extends AbstractView {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.springframework.web.servlet.view.AbstractView#renderMergedOutputModel
 	 * (java.util.Map, javax.servlet.http.HttpServletRequest,
@@ -131,10 +134,10 @@ public class UserInfoView extends AbstractView {
 
 	/**
 	 * Build a JSON response according to the request object received.
-	 * 
+	 *
 	 * Claims requested in requestObj.userinfo.claims are added to any
 	 * claims corresponding to requested scopes, if any.
-	 * 
+	 *
 	 * @param ui the UserInfo to filter
 	 * @param scope the allowed scopes to filter by
 	 * @param authorizedClaims the claims authorized by the client or user
@@ -143,6 +146,7 @@ public class UserInfoView extends AbstractView {
 	 */
 	private JsonObject toJsonFromRequestObj(UserInfo ui, Set<String> scope, JsonObject authorizedClaims, JsonObject requestedClaims) {
 
+		FederatedUserInfo federatedUserInfo = (FederatedUserInfo) ui;
 		// get the base object
 		JsonObject obj = ui.toJson();
 
@@ -161,6 +165,11 @@ public class UserInfoView extends AbstractView {
 			for (Entry<String, JsonElement> entry : userinfoRequested.getAsJsonObject().entrySet()) {
 				requestedByClaims.add(entry.getKey());
 			}
+		}
+		
+		for (OpenstackProjectId projectId : federatedUserInfo.getOpenstackProjectId()) {
+			allowedByScope.add(projectId.getScopeName());
+			logger.debug("NIKOSEV: UserInfoView: toJsonFromRequestObj: OpenstackProjectId: ScopeName: " + projectId.getScopeName());
 		}
 
 		// Filter claims by performing a manual intersection of claims that are allowed by the given scope, requested, and authorized.

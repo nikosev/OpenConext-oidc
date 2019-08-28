@@ -8,6 +8,8 @@ import org.mitre.openid.connect.model.DefaultUserInfo;
 import org.springframework.util.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import oidc.model.DefaultOpenstackProjectId;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
   // new claims' titles
   private Set<String> eduPersonAssurance = new HashSet<>();
   private String preferredUsername;
+  private Set<DefaultOpenstackProjectId> openstackProjectId = new HashSet<>();
 
   @Basic
   @Column(name = "unspecified_name_id")
@@ -168,6 +171,15 @@ public class FederatedUserInfo extends DefaultUserInfo {
     this.preferredUsername = preferredUsername;
   }
 
+  @Transient
+  public Set<DefaultOpenstackProjectId> getOpenstackProjectId() {
+    return openstackProjectId;
+  }
+
+  public void setOpenstackProjectId(Set<DefaultOpenstackProjectId> openstackProjectId) {
+    this.openstackProjectId = openstackProjectId;
+  }
+
   @Override
   public JsonObject toJson() {
     JsonObject obj = super.toJson();
@@ -184,6 +196,9 @@ public class FederatedUserInfo extends DefaultUserInfo {
     addProperty(obj, this.eduPersonUniqueId, "eduperson_unique_id");
     addListProperty(obj, this.eduPersonScopedAffiliations, "eduperson_scoped_affiliation");
     addProperty(obj, this.preferredUsername, "preferred_username");
+    for (DefaultOpenstackProjectId projectId : this.openstackProjectId) {
+      addProperty(obj, projectId.getOpenstackProjectId(), projectId.getScopeName());
+    }
     return obj;
   }
 

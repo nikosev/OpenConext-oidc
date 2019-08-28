@@ -1,5 +1,6 @@
 package oidc.service;
 
+import oidc.model.DefaultOpenstackProjectId;
 import oidc.model.FederatedUserInfo;
 import org.mitre.oauth2.model.OAuth2AccessTokenEntity;
 import org.mitre.oauth2.service.impl.DefaultIntrospectionResultAssembler;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 import org.mitre.util.AttributeFiltering;
+import org.mitre.util.OpenstackProjectIdFiltering;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -56,6 +58,11 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             }
             if (config.isClaimEduPersonScopedAffiliation()) {
                 result.put("eduperson_scoped_affiliation", federatedUserInfo.getEduPersonScopedAffiliations());
+            }
+            Set<DefaultOpenstackProjectId> openstackProjectIds = new HashSet<DefaultOpenstackProjectId>(OpenstackProjectIdFiltering.createDynamincClaims(originalAttributes, scopes, config.getParametricScopes(), federatedUserInfo.getSub()));
+            federatedUserInfo.setOpenstackProjectId(openstackProjectIds);
+            for (DefaultOpenstackProjectId osProjectId : federatedUserInfo.getOpenstackProjectId()) {
+                result.put(osProjectId.getScopeName(), osProjectId.getOpenstackProjectId());
             }
         }
         return result;
