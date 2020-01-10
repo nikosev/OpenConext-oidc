@@ -30,6 +30,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
 
   private Set<String> eduPersonScopedAffiliations = new HashSet<>();
   private Set<String> eduPersonEntitlements = new HashSet<>();
+  private Set<String> certEntitlement = new HashSet<>();
   // new claims' titles
   private Set<String> eduPersonAssurance = new HashSet<>();
   private String preferredUsername;
@@ -168,6 +169,20 @@ public class FederatedUserInfo extends DefaultUserInfo {
     this.preferredUsername = preferredUsername;
   }
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_cert_entitlement",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "cert_entitlement")
+  public Set<String> getCertEntitlement() {
+    return certEntitlement;
+  }
+
+  public void setCertEntitlement(Set<String> certEntitlement) {
+    this.certEntitlement = certEntitlement;
+  }
+
   @Override
   public JsonObject toJson() {
     JsonObject obj = super.toJson();
@@ -184,6 +199,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
     addProperty(obj, this.eduPersonUniqueId, "eduperson_unique_id");
     addListProperty(obj, this.eduPersonScopedAffiliations, "eduperson_scoped_affiliation");
     addProperty(obj, this.preferredUsername, "preferred_username");
+    addListProperty(obj, this.certEntitlement, "cert_entitlement");
     return obj;
   }
 
@@ -220,6 +236,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
         ", givenName='" + getGivenName() + '\'' +
         ", familyName='" + getFamilyName() + '\'' +
         ", email='" + getEmail() + '\'' +
+        ", certEntitlement='" + certEntitlement + '\'' +
         '}';
   }
 
