@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mitre.openid.connect.model.UserInfo;
 import org.mitre.openid.connect.service.ScopeClaimTranslationService;
+import org.mitre.util.CertEntitlementParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,7 +176,11 @@ public class UserInfoView extends AbstractView {
 
 				if (requestedByClaims.isEmpty() || requestedByClaims.contains(entry.getKey())) {
 					// the requested claims are empty (so we allow all), or they're not empty and this claim was specifically asked for
-					result.add(entry.getKey(), entry.getValue());
+					if (entry.getKey() == "cert_entitlement") {
+						result.add(entry.getKey(), CertEntitlementParser.buildCertEntitlementClaimUserInfo(entry.getValue()));
+					} else {
+						result.add(entry.getKey(), entry.getValue());
+					}
 				} // otherwise there were specific claims requested and this wasn't one of them
 			}
 		}

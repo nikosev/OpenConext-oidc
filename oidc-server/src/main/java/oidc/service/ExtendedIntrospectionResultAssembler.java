@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
+import org.mitre.util.CertEntitlementParser;
 
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             result.put("authenticating_authority", federatedUserInfo.getAuthenticatingAuthority());
             result.put("acr", federatedUserInfo.getAcr());
             result.put("eduperson_assurance", federatedUserInfo.getEduPersonAssurance());
+            result.put("cert_entitlement", CertEntitlementParser.buildCertEntitlementClaimIntrospect(federatedUserInfo.getCertEntitlement()));
             if (config.isClaimEduPersonEntitlementOld()) {
                 result.put("edu_person_entitlements", federatedUserInfo.getEduPersonEntitlements());
             }
