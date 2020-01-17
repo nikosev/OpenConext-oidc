@@ -69,6 +69,9 @@ public final class CertEntitlementParser {
     }
 
     public static Set<String> listToSet(List<String> jsonListString) {
+        if (jsonListString == null) {
+            return null;
+        }
         String jsonString = jsonListString.get(0);
         JsonParser parser = new JsonParser();
         Set<String> certEntitlementSet = new HashSet<>();

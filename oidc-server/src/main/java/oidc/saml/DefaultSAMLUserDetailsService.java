@@ -212,7 +212,7 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
         properties.get(EDU_PERSON_ASSURANCE_ID_URN))));
     userInfo.setPreferredUsername(flatten(properties.getOrDefault("urn:oid:0.9.2342.19200300.100.1.1",
         properties.get("urn:mace:dir:attribute-def:uid"))));
-    userInfo.setCertEntitlement(CertEntitlementParser.listToSet(properties.get("certEntitlement")));
+    userInfo.setCertEntitlement(CertEntitlementParser.listToSet(properties.getOrDefault("certEntitlement", null)));
 
     return userInfo;
   }
