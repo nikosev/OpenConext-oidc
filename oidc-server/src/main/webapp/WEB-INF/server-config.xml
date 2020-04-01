@@ -99,6 +99,9 @@
 
 		<!-- This property sets the display of edu_person_unique_id claim" -->
 		<property name="claimEduPersonUniqueIdOld" value="${claim.eduperson.uniqueid.old}" />
+		
+		<!-- This property sets the display of email claim in introspection endpoit response" -->
+		<property name="introspectClaimEmail" value="${introspect.claim.email}" />
 
 		<!-- This property sets the entitlements the user should contain to become an admin" -->
 		<property name="adminEntitlements" value="#{'${admin.entitlements}'.split(', ')}" />
