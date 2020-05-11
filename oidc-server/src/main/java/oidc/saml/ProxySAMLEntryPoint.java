@@ -81,6 +81,7 @@ public class ProxySAMLEntryPoint extends SAMLEntryPoint {
             String spEntityId = serviceProviderTranslationService.translateClientId(clientId);
             profileOptions.setRequesterIds(new HashSet<>(Arrays.asList(spEntityId)));
         }
+        profileOptions.setProxyCount(10);
         return profileOptions;
     }
 
