@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Increase ProxyCount to 10
+- Remove the last "/" from the request URI if exists
 
 ## [v3.0.0]
 
