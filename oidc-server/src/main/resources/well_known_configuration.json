@@ -65,6 +65,8 @@
     "given_name",
     "family_name",
     "email",
+    "email_verified",
+    "voperson_verified_email",
     "eduperson_assurance",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",

@@ -45,6 +45,8 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             }
             if (config.isIntrospectClaimEmail()) {
                 result.put("email", federatedUserInfo.getEmail());
+                result.put("email_verified", federatedUserInfo.getEmailVerified());
+                result.put("voperson_verified_email", federatedUserInfo.getVoPersonVerifiedEmail());
             }
         }
         return result;

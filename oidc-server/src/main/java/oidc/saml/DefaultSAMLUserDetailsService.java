@@ -198,6 +198,14 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
     userInfo.setEmail(flatten(properties.getOrDefault("urn:oid:0.9.2342.19200300.100.1.3",
     		properties.get("urn:mace:dir:attribute-def:mail"))));
 
+    userInfo.setVoPersonVerifiedEmail(set(properties.get("urn:oid:1.3.6.1.4.1.25178.4.1.14")));
+    if ( !userInfo.getVoPersonVerifiedEmail().isEmpty() && !userInfo.getEmail().isEmpty() && userInfo.getVoPersonVerifiedEmail().contains(userInfo.getEmail())) {
+        userInfo.setEmailVerified(true);
+    } else {
+        userInfo.setEmailVerified(false);
+    }
+
+    
     userInfo.setEduPersonScopedAffiliations(set(properties.getOrDefault("urn:oid:1.3.6.1.4.1.5923.1.1.1.9",
     		properties.get("urn:mace:dir:attribute-def:eduPersonScopedAffiliation"))));
     

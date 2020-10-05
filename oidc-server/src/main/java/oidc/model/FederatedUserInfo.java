@@ -35,6 +35,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
   private Set<String> eduPersonAssurance = new HashSet<>();
   private String preferredUsername;
   private String eduPersonOrcid;
+  private Set<String> voPersonVerifiedEmail = new HashSet<>();
 
   @Basic
   @Column(name = "unspecified_name_id")
@@ -193,6 +194,20 @@ public class FederatedUserInfo extends DefaultUserInfo {
     this.eduPersonOrcid = eduPersonOrcid;
   }
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_voperson_verified_email",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "voperson_verified_email")
+  public Set<String> getVoPersonVerifiedEmail() {
+    return voPersonVerifiedEmail;
+  }
+
+  public void setVoPersonVerifiedEmail(Set<String> voPersonVerifiedEmail) {
+    this.voPersonVerifiedEmail = voPersonVerifiedEmail;
+  }
+
   @Override
   public JsonObject toJson() {
     JsonObject obj = super.toJson();
@@ -211,6 +226,9 @@ public class FederatedUserInfo extends DefaultUserInfo {
     addProperty(obj, this.preferredUsername, "preferred_username");
     addListProperty(obj, this.certEntitlement, "cert_entitlement");
     addProperty(obj, this.eduPersonOrcid, "orcid");
+    addListProperty(obj, this.voPersonVerifiedEmail, "voperson_verified_email");
+
+    obj.addProperty("email_verified", this.getEmailVerified());
     return obj;
   }
 
@@ -249,6 +267,8 @@ public class FederatedUserInfo extends DefaultUserInfo {
         ", familyName='" + getFamilyName() + '\'' +
         ", email='" + getEmail() + '\'' +
         ", certEntitlement='" + certEntitlement + '\'' +
+        ", voPersonVerifiedEmail='" + voPersonVerifiedEmail + '\'' +
+        ", emailVerified='" + getEmailVerified() + '\'' +
         '}';
   }
 
