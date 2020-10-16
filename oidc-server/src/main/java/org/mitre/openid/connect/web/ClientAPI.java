@@ -23,6 +23,7 @@ import java.util.Collection;
 import org.mitre.oauth2.model.ClientDetailsEntity;
 import org.mitre.oauth2.model.ClientDetailsEntity.AuthMethod;
 import org.mitre.oauth2.model.PKCEAlgorithm;
+import org.mitre.oauth2.repository.OAuth2ClientRepository;
 import org.mitre.oauth2.service.ClientDetailsEntityService;
 import org.mitre.oauth2.web.AuthenticationUtilities;
 import org.mitre.openid.connect.model.CachedImage;
@@ -81,6 +82,9 @@ public class ClientAPI {
 
 	@Autowired
 	private ClientLogoLoadingService clientLogoLoadingService;
+
+	@Autowired
+	private OAuth2ClientRepository clientRepository;
 
 	private JsonParser parser = new JsonParser();
 
@@ -198,6 +202,16 @@ public class ClientAPI {
 		// if they leave the client identifier empty, force it to be generated
 		if (Strings.isNullOrEmpty(client.getClientId())) {
 			client = clientService.generateClientId(client);
+		}
+
+		// Check for duplicate client_id
+		ClientDetailsEntity duplicateClient = clientRepository.getClientByClientId(client.getClientId());
+
+		if (duplicateClient != null && !Strings.isNullOrEmpty(duplicateClient.getClientId())) {
+			logger.error("apiAddClient could not save new client. Duplicate Client ID");
+			m.addAttribute(HttpCodeView.CODE, HttpStatus.BAD_REQUEST);
+			m.addAttribute(JsonErrorView.ERROR_MESSAGE, "Could not save new client. Duplicate Client ID: " + duplicateClient.getClientId());
+			return JsonErrorView.VIEWNAME;
 		}
 
 		if (client.getTokenEndpointAuthMethod() == null ||

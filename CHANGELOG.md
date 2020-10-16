@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Increase ProxyCount to 10
 - Remove the last "/" from the request URI if exists
+- Display error message properly when creating a new client with duplicate client id
 
 ## [v3.0.0]
 
