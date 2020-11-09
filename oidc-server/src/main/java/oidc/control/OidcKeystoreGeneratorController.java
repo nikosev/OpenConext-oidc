@@ -2,6 +2,9 @@ package oidc.control;
 
 import com.nimbusds.jose.Algorithm;
 import net.minidev.json.JSONStyle;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +22,7 @@ import java.util.UUID;
 public class OidcKeystoreGeneratorController {
 
     @RequestMapping("/generate-oidc-keystore")
-    public String generate() throws Exception {
+    public ResponseEntity generate() throws Exception {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
         KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA", "BC");
@@ -33,7 +36,12 @@ public class OidcKeystoreGeneratorController {
             .algorithm(new Algorithm("RS256"))
             .keyID(UUID.randomUUID().toString())
             .build();
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        return build.toJSONObject().toJSONString(JSONStyle.NO_COMPRESS);
+        return ResponseEntity.ok()
+            .headers(headers)
+            .body(build.toJSONObject().toJSONString(JSONStyle.NO_COMPRESS));
     }
 }
