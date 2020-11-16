@@ -38,6 +38,8 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
   public static final String EDU_PERSON_ASSURANCE_ID_URN = "urn:mace:dir:attribute-def:eduPersonAssurance";
   public static final String EDU_PERSON_ASSURANCE_ID_OID = "urn:oid:1.3.6.1.4.1.5923.1.1.1.11";
   public static final String EDU_PERSON_ENTITLEMENT ="urn:mace:dir:attribute-def:eduPersonEntitlement";
+  public static final String EDU_PERSON_ORCID_OID = "urn:oid:1.3.6.1.4.1.5923.1.1.1.16";
+  public static final String EDU_PERSON_ORCID_URN = "urn:mace:dir:attribute-def:eduPersonOrcid";
 
   public List<String> ADMIN_ENTITLEMENT;
   public List<String> ADMIN_SUB;
@@ -213,6 +215,8 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
     userInfo.setPreferredUsername(flatten(properties.getOrDefault("urn:oid:0.9.2342.19200300.100.1.1",
         properties.get("urn:mace:dir:attribute-def:uid"))));
     userInfo.setCertEntitlement(CertEntitlementParser.listToSet(properties.getOrDefault("certEntitlement", null)));
+    userInfo.setEduPersonOrcid(flatten(properties.getOrDefault(EDU_PERSON_ORCID_OID,
+    		properties.get(EDU_PERSON_ORCID_URN))));
 
     return userInfo;
   }

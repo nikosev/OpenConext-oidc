@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add support for `cert_entitlement` scope
 - Include email claim in introspection endpoint response
+- Add ORCID scope
 
 ## [v3.0.0]
 
