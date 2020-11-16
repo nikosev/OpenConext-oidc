@@ -4,6 +4,7 @@ import oidc.model.FederatedUserInfo;
 import oidc.service.HashedPairwiseIdentifierService;
 import oidc.user.FederatedUserInfoService;
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
+import org.mitre.util.CertEntitlementParser;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -211,6 +212,7 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
         properties.get(EDU_PERSON_ASSURANCE_ID_URN))));
     userInfo.setPreferredUsername(flatten(properties.getOrDefault("urn:oid:0.9.2342.19200300.100.1.1",
         properties.get("urn:mace:dir:attribute-def:uid"))));
+    userInfo.setCertEntitlement(CertEntitlementParser.listToSet(properties.getOrDefault("certEntitlement", null)));
 
     return userInfo;
   }

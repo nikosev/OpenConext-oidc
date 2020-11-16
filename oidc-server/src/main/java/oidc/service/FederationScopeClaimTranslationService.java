@@ -37,6 +37,8 @@ public class FederationScopeClaimTranslationService implements ScopeClaimTransla
 		scopesToClaims.put("profile", "family_name");
 
 		scopesToClaims.put("email", "email");
+
+		scopesToClaims.put("cert_entitlement", "cert_entitlement");
 	}
 
 	@PostConstruct
