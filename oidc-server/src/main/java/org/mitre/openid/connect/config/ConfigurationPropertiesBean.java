@@ -75,6 +75,8 @@ public class ConfigurationPropertiesBean {
 	private boolean claimEduPersonUniqueId = true;
 
 	private boolean claimEduPersonUniqueIdOld = true;
+	
+	private boolean introspectClaimEmail = false;
 
 	private List<String> adminEntitlements = Lists.newArrayList("");
 
@@ -440,6 +442,20 @@ public class ConfigurationPropertiesBean {
 	 */
 	public void setClaimEduPersonUniqueIdOld(boolean claimEduPersonUniqueIdOld) {
 		this.claimEduPersonUniqueIdOld = claimEduPersonUniqueIdOld;
+	}
+
+	/**
+	 * @return the introspectClaimEmail
+	 */
+	public boolean isIntrospectClaimEmail() {
+		return introspectClaimEmail;
+	}
+
+	/**
+	 * @param introspectClaimEmail the introspectClaimEmail to set
+	 */
+	public void setIntrospectClaimEmail(boolean introspectClaimEmail) {
+		this.introspectClaimEmail = introspectClaimEmail;
 	}
 
 	/**

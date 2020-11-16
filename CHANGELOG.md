@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add support for `cert_entitlement` scope
+- Include email claim in introspection endpoint response
 
 ## [v3.0.0]
 

@@ -43,6 +43,9 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             if (config.isClaimEduPersonScopedAffiliation()) {
                 result.put("eduperson_scoped_affiliation", federatedUserInfo.getEduPersonScopedAffiliations());
             }
+            if (config.isIntrospectClaimEmail()) {
+                result.put("email", federatedUserInfo.getEmail());
+            }
         }
         return result;
     }
