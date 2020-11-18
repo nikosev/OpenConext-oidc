@@ -11,6 +11,7 @@ import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 import org.mitre.util.CertEntitlementParser;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -49,6 +50,8 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
                 result.put("voperson_verified_email", federatedUserInfo.getVoPersonVerifiedEmail());
             }
         }
+        result.values().removeIf(Objects::isNull);
+        result.entrySet().removeIf(entry -> (entry.getValue().toString().equals("[]")));
         return result;
     }
 

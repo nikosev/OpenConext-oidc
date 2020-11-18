@@ -251,25 +251,25 @@ public class FederatedUserInfo extends DefaultUserInfo {
   @Override
   public String toString() {
     return "FederatedUserInfo{" +
-        "unspecifiedNameId='" + unspecifiedNameId + '\'' +
-        ", authenticatingAuthority='" + authenticatingAuthority + '\'' +
-        ", acr='" + acr + '\'' +
-        ", eduPersonUniqueId='" + eduPersonUniqueId + '\'' +
-        ", eduPersonPrincipalName='" + eduPersonPrincipalName + '\'' +
-        ", eduPersonTargetedId='" + eduPersonTargetedId + '\'' +
-        ", eduPersonEntitlement='" + eduPersonEntitlements + '\'' +
-        ", eduPersonScopedAffiliation='" + eduPersonScopedAffiliations + '\'' +
-        ", eduPersonAssurance='" + eduPersonAssurance + '\'' +
-        ", preferredUsername='" + preferredUsername + '\'' +
-        ", eduPersonOrcid='" + eduPersonOrcid + '\'' +
-        ", name='" + getName() + '\'' +
-        ", givenName='" + getGivenName() + '\'' +
-        ", familyName='" + getFamilyName() + '\'' +
-        ", email='" + getEmail() + '\'' +
-        ", certEntitlement='" + certEntitlement + '\'' +
-        ", voPersonVerifiedEmail='" + voPersonVerifiedEmail + '\'' +
-        ", emailVerified='" + getEmailVerified() + '\'' +
-        '}';
+        "unspecifiedNameId='" + unspecifiedNameId + "'" +
+        ", authenticatingAuthority='" + authenticatingAuthority + "'" +
+        ", acr='" + acr + "'" +
+        ", eduPersonUniqueId='" + eduPersonUniqueId + "'" +
+        ", eduPersonPrincipalName='" + eduPersonPrincipalName + "'" +
+        ", eduPersonTargetedId='" + eduPersonTargetedId + "'" +
+        ", eduPersonEntitlement='" + eduPersonEntitlements + "'" +
+        ", eduPersonScopedAffiliation='" + eduPersonScopedAffiliations + "'" +
+        ", eduPersonAssurance='" + eduPersonAssurance + "'" +
+        ", preferredUsername='" + preferredUsername + "'" +
+        ", eduPersonOrcid='" + eduPersonOrcid + "'" +
+        ", name='" + getName() + "'" +
+        ", givenName='" + getGivenName() + "'" +
+        ", familyName='" + getFamilyName() + "'" +
+        ", email='" + getEmail() + "'" +
+        ", certEntitlement='" + certEntitlement + "'" +
+        ", voPersonVerifiedEmail='" + voPersonVerifiedEmail + "'" +
+        ", emailVerified='" + getEmailVerified() + "'" +
+        "}";
   }
 
   public String hashed() {
