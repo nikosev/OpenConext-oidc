@@ -7,6 +7,8 @@
     "profile",
     "email",
     "offline_access",
+    "cert_entitlement",
+    "orcid",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",
     "eduperson_unique_id "
@@ -67,6 +69,8 @@
     "email",
     "email_verified",
     "voperson_verified_email",
+    "cert_entitlement",
+    "orcid",
     "eduperson_assurance",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",
