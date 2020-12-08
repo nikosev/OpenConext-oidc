@@ -40,6 +40,7 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
   public static final String EDU_PERSON_ENTITLEMENT ="urn:mace:dir:attribute-def:eduPersonEntitlement";
   public static final String EDU_PERSON_ORCID_OID = "urn:oid:1.3.6.1.4.1.5923.1.1.1.16";
   public static final String EDU_PERSON_ORCID_URN = "urn:mace:dir:attribute-def:eduPersonOrcid";
+  public static final String SSH_PUBLIC_KEY_OID = "urn:oid:1.3.6.1.4.1.24552.500.1.1.1.13";
 
   public List<String> ADMIN_ENTITLEMENT;
   public List<String> ADMIN_SUB;
@@ -225,6 +226,7 @@ public class DefaultSAMLUserDetailsService implements SAMLUserDetailsService {
     userInfo.setCertEntitlement(CertEntitlementParser.listToSet(properties.getOrDefault("certEntitlement", null)));
     userInfo.setEduPersonOrcid(flatten(properties.getOrDefault(EDU_PERSON_ORCID_OID,
     		properties.get(EDU_PERSON_ORCID_URN))));
+    userInfo.setSshPublicKey(set(properties.get(SSH_PUBLIC_KEY_OID)));
 
     return userInfo;
   }

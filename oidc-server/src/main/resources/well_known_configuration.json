@@ -9,6 +9,7 @@
     "offline_access",
     "cert_entitlement",
     "orcid",
+    "ssh_public_key",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",
     "eduperson_unique_id "
@@ -71,6 +72,7 @@
     "voperson_verified_email",
     "cert_entitlement",
     "orcid",
+    "ssh_public_key",
     "eduperson_assurance",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",

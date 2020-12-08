@@ -36,6 +36,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
   private String preferredUsername;
   private String eduPersonOrcid;
   private Set<String> voPersonVerifiedEmail = new HashSet<>();
+  private Set<String> sshPublicKey = new HashSet<>();
 
   @Basic
   @Column(name = "unspecified_name_id")
@@ -208,6 +209,23 @@ public class FederatedUserInfo extends DefaultUserInfo {
     this.voPersonVerifiedEmail = voPersonVerifiedEmail;
   }
 
+  /**
+   * SSH Public Key attribute
+   */
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+      name = "user_ssh_public_key",
+      joinColumns = @JoinColumn(name = "user_id")
+  )
+  @Column(name = "ssh_public_key")
+  public Set<String> getSshPublicKey() {
+    return sshPublicKey;
+  }
+
+  public void setSshPublicKey(Set<String> sshPublicKey) {
+    this.sshPublicKey = sshPublicKey;
+  }
+
   @Override
   public JsonObject toJson() {
     JsonObject obj = super.toJson();
@@ -227,6 +245,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
     addListProperty(obj, this.certEntitlement, "cert_entitlement");
     addProperty(obj, this.eduPersonOrcid, "orcid");
     addListProperty(obj, this.voPersonVerifiedEmail, "voperson_verified_email");
+    addListProperty(obj, this.sshPublicKey, "ssh_public_key");
 
     obj.addProperty("email_verified", this.getEmailVerified());
     return obj;
@@ -269,6 +288,7 @@ public class FederatedUserInfo extends DefaultUserInfo {
         ", certEntitlement='" + certEntitlement + "'" +
         ", voPersonVerifiedEmail='" + voPersonVerifiedEmail + "'" +
         ", emailVerified='" + getEmailVerified() + "'" +
+        ", sshPublicKey='" + sshPublicKey+ "'" +
         "}";
   }
 
