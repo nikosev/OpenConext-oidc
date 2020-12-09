@@ -43,6 +43,8 @@ public class FederationScopeClaimTranslationService implements ScopeClaimTransla
 		scopesToClaims.put("cert_entitlement", "cert_entitlement");
 
 		scopesToClaims.put("orcid", "orcid");
+
+		scopesToClaims.put("ssh_public_key", "ssh_public_key");
 	}
 
 	@PostConstruct
