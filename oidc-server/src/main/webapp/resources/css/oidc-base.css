@@ -101,3 +101,16 @@ ul.footer-menu {
 ul.footer-menu li {
     margin-right: 30px;
 }
+fieldset.well h5 {
+    margin-top: 0;
+}
+#moreInformation a {
+    color: #cec9c9;
+    text-decoration: underline;
+}
+#moreInformation a:hover {
+    color: white;
+}
+.row-content-full {
+    width: 100%;
+}
