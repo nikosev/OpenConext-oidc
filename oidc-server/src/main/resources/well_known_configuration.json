@@ -12,7 +12,7 @@
     "ssh_public_key",
     "eduperson_entitlement",
     "eduperson_scoped_affiliation",
-    "eduperson_unique_id "
+    "eduperson_unique_id"
   ],
   "issuer": "@configuration_end_point@",
   "userinfo_encryption_enc_values_supported": [
