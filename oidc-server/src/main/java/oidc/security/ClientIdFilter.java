@@ -26,18 +26,18 @@ public class ClientIdFilter extends GenericFilterBean {
         Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
         String servletPath = request.getServletPath();
 
-        if (servletPath != null && servletPath.endsWith("authorize")) {
-            if (currentAuthentication != null && currentAuthentication.getDetails() instanceof SAMLUser) {
-                if (!isBlackHole(request)) {
-                    SecurityContextHolder.clearContext();
-                    request.getSession().setAttribute(BLACK_HOLE_ATTRIBUTE, Boolean.TRUE);
-                } else {
-                    request.getSession().removeAttribute(BLACK_HOLE_ATTRIBUTE);
-                }
-            } else {
-                request.getSession().setAttribute(BLACK_HOLE_ATTRIBUTE, Boolean.TRUE);
-            }
-        }
+        // if (servletPath != null && servletPath.endsWith("authorize")) {
+        //     if (currentAuthentication != null && currentAuthentication.getDetails() instanceof SAMLUser) {
+        //         if (!isBlackHole(request)) {
+        //             SecurityContextHolder.clearContext();
+        //             request.getSession().setAttribute(BLACK_HOLE_ATTRIBUTE, Boolean.TRUE);
+        //         } else {
+        //             request.getSession().removeAttribute(BLACK_HOLE_ATTRIBUTE);
+        //         }
+        //     } else {
+        //         request.getSession().setAttribute(BLACK_HOLE_ATTRIBUTE, Boolean.TRUE);
+        //     }
+        // }
 
         String clientId = request.getParameter("client_id");
 
