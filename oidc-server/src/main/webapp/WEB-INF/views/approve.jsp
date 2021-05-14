@@ -165,7 +165,7 @@
 				</div>
 				<div class="span4">
 					<fieldset style="text-align: left" class="well">
-						<legend style="margin-bottom: 0;"><spring:message code="approve.access_to"/>:</legend>
+						<h5><spring:message code="approve.access_to"/>:</h5>
 
 						<c:if test="${ empty client.scope }">
 								<div class="alert alert-block alert-error">
@@ -228,7 +228,7 @@
 					</fieldset>
 
 					<fieldset style="text-align: left" class="well">
-						<legend style="margin-bottom: 0;"><spring:message code="approve.remember.title"/>:</legend>
+						<h5><spring:message code="approve.remember.title"/>:</h5>
 						<label for="remember-forever" class="radio"> 
 						<input type="radio" name="remember" id="remember-forever" value="until-revoked"  ${ !consent ? 'checked="checked"' : '' }> 
 							<spring:message code="approve.remember.until_revoke"/>
@@ -247,7 +247,8 @@
 			</div>
 
 			<div class="row">
-				<h3>
+				<div class="row-content-full">
+					<h3>
 						<spring:message code="approve.do_authorize"/> 
 						"<c:choose>
 							<c:when test="${empty client.clientName}">
@@ -257,16 +258,17 @@
 								<c:out value="${client.clientName}" />
 							</c:otherwise>
 						</c:choose>"?
-				</h3>
-                <spring:message code="approve.label.authorize" var="authorize_label"/>
-                <spring:message code="approve.label.deny" var="deny_label"/>
-				<input id="user_oauth_approval" name="user_oauth_approval" value="true" type="hidden" />
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<input name="authorize" value="${authorize_label}" type="submit"
-				onclick="$('#user_oauth_approval').attr('value',true)" class="btn btn-success btn-large" /> 
-				&nbsp; 
-				<input name="deny" value="${deny_label}" type="submit" onclick="$('#user_oauth_approval').attr('value',false)"
-				class="btn btn-secondary btn-large" />
+					</h3>
+					<spring:message code="approve.label.authorize" var="authorize_label"/>
+					<spring:message code="approve.label.deny" var="deny_label"/>
+					<input id="user_oauth_approval" name="user_oauth_approval" value="true" type="hidden" />
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input name="authorize" value="${authorize_label}" type="submit"
+					onclick="$('#user_oauth_approval').attr('value',true)" class="btn btn-success btn-large" /> 
+					&nbsp;
+					<input name="deny" value="${deny_label}" type="submit" onclick="$('#user_oauth_approval').attr('value',false)"
+					class="btn btn-secondary btn-large" />
+				</div>
 			</div>
 
 		</form>
