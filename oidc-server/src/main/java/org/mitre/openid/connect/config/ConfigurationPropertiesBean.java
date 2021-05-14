@@ -76,6 +76,12 @@ public class ConfigurationPropertiesBean {
 
 	private boolean claimEduPersonUniqueIdOld = true;
 	
+	private boolean introspectClaimCertEntitlement = false;
+	
+	private boolean introspectClaimEdupersonEntitlement = false;
+	
+	private boolean introspectClaimEdupersonScopedAffiliation = false;
+	
 	private boolean introspectClaimEmail = false;
 
 	private List<String> adminEntitlements = Lists.newArrayList("");
@@ -442,6 +448,48 @@ public class ConfigurationPropertiesBean {
 	 */
 	public void setClaimEduPersonUniqueIdOld(boolean claimEduPersonUniqueIdOld) {
 		this.claimEduPersonUniqueIdOld = claimEduPersonUniqueIdOld;
+	}
+
+	/**
+	 * @return the introspectClaimCertEntitlement
+	 */
+	public boolean isIntrospectClaimCertEntitlement() {
+		return introspectClaimCertEntitlement;
+	}
+
+	/**
+	 * @param introspectClaimCertEntitlement the introspectClaimCertEntitlement to set
+	 */
+	public void setIntrospectClaimCertEntitlement(boolean introspectClaimCertEntitlement) {
+		this.introspectClaimCertEntitlement = introspectClaimCertEntitlement;
+	}
+
+	/**
+	 * @return the introspectClaimEdupersonEntitlement
+	 */
+	public boolean isIntrospectClaimEdupersonEntitlement() {
+		return introspectClaimEdupersonEntitlement;
+	}
+
+	/**
+	 * @param introspectClaimEdupersonEntitlement the introspectClaimEdupersonEntitlement to set
+	 */
+	public void setIntrospectClaimEdupersonEntitlement(boolean introspectClaimEdupersonEntitlement) {
+		this.introspectClaimEdupersonEntitlement = introspectClaimEdupersonEntitlement;
+	}
+
+	/**
+	 * @return the introspectClaimEdupersonScopedAffiliation
+	 */
+	public boolean isIntrospectClaimEdupersonScopedAffiliation() {
+		return introspectClaimEdupersonScopedAffiliation;
+	}
+
+	/**
+	 * @param introspectClaimEdupersonScopedAffiliation the introspectClaimEdupersonScopedAffiliation to set
+	 */
+	public void setIntrospectClaimEdupersonScopedAffiliation(boolean introspectClaimEdupersonScopedAffiliation) {
+		this.introspectClaimEdupersonScopedAffiliation = introspectClaimEdupersonScopedAffiliation;
 	}
 
 	/**
