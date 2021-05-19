@@ -194,18 +194,30 @@
 									</c:otherwise>
 								</c:choose>
 								
-								<c:if test="${ not empty claims[scope.value] }">
+								<c:if test="${ not empty claims[scope.value] || not empty claims_multi[scope.value] }">
 									<span class="claim-tooltip" data-toggle="popover"
 										data-html="true"
 										data-placement="right"
 										data-trigger="hover"
 										data-title="These values will be sent:"
-										data-content="<div style=&quot;text-align: left;&quot;>
+										data-content="<div style=&quot;text-align: left; word-wrap: break-word;&quot;>
 											<ul>
 											<c:forEach var="claim" items="${ claims[scope.value] }">
 												<li>
 												<b><c:out value="${ claim.key }" /></b>: 
 												<c:out value="${ claim.value }" />
+												</li>
+											</c:forEach>
+											<c:forEach var="claim" items="${ claims_multi[scope.value] }">
+												<li>
+												<b><c:out value="${ claim.key }" /></b>: 
+												<ul>
+												<c:forEach var="claimList" items="${ claim.value }">
+													<li>
+														<c:out value="${ claimList }" />
+													</li>
+												</c:forEach>
+												</ul>
 												</li>
 											</c:forEach>
 											</ul>
