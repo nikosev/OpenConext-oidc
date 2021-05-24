@@ -279,7 +279,7 @@
 					onclick="$('#user_oauth_approval').attr('value',true)" class="btn btn-success btn-large" /> 
 					&nbsp;
 					<input name="deny" value="${deny_label}" type="submit" onclick="$('#user_oauth_approval').attr('value',false)"
-					class="btn btn-secondary btn-large" />
+					class="btn btn-secondary btn-large" autofocus />
 				</div>
 			</div>
 
