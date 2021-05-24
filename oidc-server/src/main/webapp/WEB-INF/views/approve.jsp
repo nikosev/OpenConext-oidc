@@ -241,17 +241,17 @@
 
 					<fieldset style="text-align: left" class="well">
 						<h5><spring:message code="approve.remember.title"/>:</h5>
-						<label for="remember-forever" class="radio"> 
-						<input type="radio" name="remember" id="remember-forever" value="until-revoked"  ${ !consent ? 'checked="checked"' : '' }> 
-							<spring:message code="approve.remember.until_revoke"/>
-						</label> 
+						<label for="remember-not" class="radio"> 
+						<input type="radio" name="remember" id="remember-not" value="none" checked="checked">
+							<spring:message code="approve.remember.next_time"/>
+						</label>
 						<label for="remember-hour" class="radio"> 
 						<input type="radio" name="remember" id="remember-hour" value="one-hour">
 							<spring:message code="approve.remember.one_hour"/>
 						</label> 
-						<label for="remember-not" class="radio"> 
-						<input type="radio" name="remember" id="remember-not" value="none" ${ consent ? 'checked="checked"' : '' }>
-							<spring:message code="approve.remember.next_time"/>
+						<label for="remember-forever" class="radio"> 
+						<input type="radio" name="remember" id="remember-forever" value="until-revoked"> 
+							<spring:message code="approve.remember.until_revoke"/>
 						</label>
 					</fieldset>
 				</div>
