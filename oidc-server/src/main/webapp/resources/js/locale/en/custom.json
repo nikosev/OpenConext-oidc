@@ -6,7 +6,8 @@
             "title": "Select the approval duration",
             "next_time": "prompt me again next time",
             "one_hour": "remember this decision for one hour",
-            "until_revoke": "remember this decision until I revoke it"
+            "until_revoke": "remember this decision until I revoke it",
+            "note": "This setting can be revoked in <a href=\"{0}manage/user/approved\" target=\"_blank\">Manage Approved Services</a> page."
         }
     },
     "client": {

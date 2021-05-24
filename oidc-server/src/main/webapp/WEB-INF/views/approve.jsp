@@ -253,6 +253,9 @@
 						<input type="radio" name="remember" id="remember-forever" value="until-revoked"> 
 							<spring:message code="approve.remember.until_revoke"/>
 						</label>
+						<div>
+							<spring:message code="approve.remember.note" arguments="${ config.issuer }${ config.issuer.endsWith('/') ? '' : '/' }"/>
+						</div>
 					</fieldset>
 				</div>
 
