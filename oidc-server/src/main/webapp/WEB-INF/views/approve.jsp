@@ -194,7 +194,7 @@
 									</c:otherwise>
 								</c:choose>
 								
-								<c:if test="${ not empty claims[scope.value] || not empty claims_multi[scope.value] }">
+								<c:if test="${ (not empty claims[scope.value] || not empty claims_multi[scope.value]) && config.approvalShowClaims }">
 									<span class="claim-tooltip" data-toggle="popover"
 										data-html="true"
 										data-placement="right"

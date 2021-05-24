@@ -82,6 +82,8 @@ public class ConfigurationPropertiesBean {
 
 	private List<String> adminSubs = Lists.newArrayList("");
 
+	private boolean approvalShowClaims = true;
+
 	private boolean adminDevelopInstance = false;
 
 	public ConfigurationPropertiesBean() {
@@ -485,6 +487,21 @@ public class ConfigurationPropertiesBean {
 	public void setAdminSubs(List<String> adminSubs) {
 		this.adminSubs = adminSubs;
 	}
+
+	/**
+	 * @return the approvalShowClaims
+	 */
+	public boolean isApprovalShowClaims() {
+		return approvalShowClaims;
+	}
+
+	/**
+	 * @param approvalShowClaims the approvalShowClaims to set
+	 */
+	public void setApprovalShowClaims(boolean approvalShowClaims) {
+		this.approvalShowClaims = approvalShowClaims;
+	}
+
 	/**
 	 * @return the adminDevelopInstance
 	 */
