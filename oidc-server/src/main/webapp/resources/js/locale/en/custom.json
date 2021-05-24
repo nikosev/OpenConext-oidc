@@ -1,4 +1,14 @@
 {
+    "approve": {
+        "required_for": "Approval Required for Service",
+        "access_to": "This service would like to",
+        "remember": {
+            "title": "Select the approval duration",
+            "next_time": "prompt me again next time",
+            "one_hour": "remember this decision for one hour",
+            "until_revoke": "remember this decision until I revoke it"
+        }
+    },
     "client": {
         "client-form": {
             "code-challenge-method": "Proof Key for Code Exchange (PKCE) Code Challenge Method",
