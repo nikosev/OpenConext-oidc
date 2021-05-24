@@ -180,8 +180,8 @@
 
 						<c:forEach var="scope" items="${ scopes }">
 
-							<label for="scope_${ fn:escapeXml(scope.value) }" class="checkbox"> 
-								<input type="checkbox" name="scope_${ fn:escapeXml(scope.value) }" id="scope_${ fn:escapeXml(scope.value) }" value="${ fn:escapeXml(scope.value) }" checked="checked"> 
+							<label for="scope_${ fn:escapeXml(scope.value) }"> 
+								<input name="scope_${ fn:escapeXml(scope.value) }" id="scope_${ fn:escapeXml(scope.value) }" value="${ fn:escapeXml(scope.value) }" type="hidden"> 
 								<c:if test="${ not empty scope.icon }">
 									<i class="icon-${ fn:escapeXml(scope.icon) }"></i>
 								</c:if> 
