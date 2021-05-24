@@ -361,6 +361,7 @@ var AppRouter = Backbone.Router.extend({
         "admin/scope/new":"newScope",
         "admin/scope/:id":"editScope",
         
+        "user/approved":"approvedSites",
 		"user/services":"services",
         "user/profile":"profile",
         
@@ -379,6 +380,7 @@ var AppRouter = Backbone.Router.extend({
     initialize:function () {
 
         this.clientList = new ClientCollection();
+        this.approvedSiteList = new ApprovedSiteCollection();
         this.systemScopeList = new SystemScopeCollection();
         this.clientStats = new StatsModel(); 
 		this.serviceList = new ServiceCollection();
@@ -522,6 +524,25 @@ var AppRouter = Backbone.Router.extend({
         	setPageTitle($.t('client.client-form.edit'));
         });
 
+    },
+
+    approvedSites:function() {
+    	this.breadCrumbView.collection.reset();
+        this.breadCrumbView.collection.add([
+            {text:$.t('admin.home'), href:""},
+            {text:$.t('grant.manage-approved-sites'), href:"manage/#user/approve"}
+        ]);
+
+        this.updateSidebar('user/approved');
+
+        var view = new ApprovedSiteListView({model:this.approvedSiteList, clientList: this.clientList, systemScopeList: this.systemScopeList});
+    	view.load( 
+    		function(collection, response, options) {
+    			$('#content').html(view.render().el);
+    	    	setPageTitle($.t('grant.manage-approved-sites'));
+    		}
+    	);
+    	
     },
 
 	services: function () {
@@ -679,6 +700,7 @@ $(function () {
     $.when(
     		$.get('resources/template/admin.html', _load),
     		$.get('resources/template/client.html', _load),
+            $.get('resources/template/grant.html', _load),
     		$.get('resources/template/scope.html', _load),
 			$.get('resources/template/service.html', _load)
     		).done(function() {

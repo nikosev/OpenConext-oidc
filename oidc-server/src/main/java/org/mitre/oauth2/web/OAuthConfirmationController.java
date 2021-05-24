@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,8 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import static org.mitre.openid.connect.request.ConnectRequestParameters.PROMPT;
@@ -180,25 +183,38 @@ public class OAuthConfirmationController {
 		// get the userinfo claims for each scope
 		UserInfo user = userInfoService.getByUsername(p.getName());
 		Map<String, Map<String, String>> claimsForScopes = new HashMap<>();
+		Map<String, Map<String, Set<String>>> claimsMultiForScopes = new HashMap<>();
 		if (user != null) {
 			JsonObject userJson = user.toJson();
 
 			for (SystemScope systemScope : sortedScopes) {
 				Map<String, String> claimValues = new HashMap<>();
+				Map<String, Set<String>> claimMultiValues = new HashMap<>();
 
 				Set<String> claims = scopeClaimTranslationService.getClaimsForScope(systemScope.getValue());
 				for (String claim : claims) {
-					if (userJson.has(claim) && userJson.get(claim).isJsonPrimitive()) {
-						// TODO: this skips the address claim
-						claimValues.put(claim, userJson.get(claim).getAsString());
+					if (userJson.has(claim)) {
+						if (userJson.get(claim).isJsonPrimitive()) {
+							// TODO: this skips the address claim
+							claimValues.put(claim, userJson.get(claim).getAsString());
+						} else if (userJson.get(claim).isJsonArray()) {
+							JsonArray claimArrayValues = userJson.get(claim).getAsJsonArray();
+							Set<String> claimSet = new HashSet<>();
+							for (JsonElement value : claimArrayValues) {
+								claimSet.add(value.getAsString());
+							}
+							claimMultiValues.put(claim, claimSet);
+						}
 					}
 				}
 
 				claimsForScopes.put(systemScope.getValue(), claimValues);
+				claimsMultiForScopes.put(systemScope.getValue(), claimMultiValues);
 			}
 		}
 
 		model.put("claims", claimsForScopes);
+		model.put("claims_multi", claimsMultiForScopes);
 
 		// client stats
 		Integer count = statsService.getCountForClientId(client.getId());

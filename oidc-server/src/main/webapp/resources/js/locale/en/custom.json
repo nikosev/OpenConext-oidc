@@ -1,4 +1,15 @@
 {
+    "approve": {
+        "required_for": "Approval Required for Service",
+        "access_to": "This service would like to",
+        "remember": {
+            "title": "Select the approval duration",
+            "next_time": "prompt me again next time",
+            "one_hour": "remember this decision for one hour",
+            "until_revoke": "remember this decision until I revoke it",
+            "note": "This setting can be revoked in <a href=\"{0}manage/user/approved\" target=\"_blank\">Manage Approved Services</a> page."
+        }
+    },
     "client": {
         "client-form": {
             "code-challenge-method": "Proof Key for Code Exchange (PKCE) Code Challenge Method",
@@ -19,6 +30,18 @@
         "service": "Service",
         "services": "Services"
     },
+    "grant": {
+        "manage-approved-sites": "Manage Approved Services",
+        "grant-table": {
+            "approved-sites": "Approved Services",
+            "no-sites": "You have not approved any services.",
+            "no-whitelisted": "You have not accessed any whitelisted services.",
+            "pre-approved": "These are services that have been pre-approved by an administrator.",
+            "text": "These are services you have approved manually. If the same service asks for the same access in the future, it will be granted without prompting.",
+            "whitelisted-site": "This service was whitelisted by an administrator",
+            "whitelisted-sites": "Whitelisted Services"
+        }
+    },
     "home": {
         "title": "Home",
         "welcome": {
@@ -33,6 +56,7 @@
     },
     "sidebar": {
         "personal": {
+            "approved_sites": "Manage Approved Services",
 	        "services": "Manage Services"
         }
     },

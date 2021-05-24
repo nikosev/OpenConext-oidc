@@ -109,6 +109,9 @@
 		<!-- This property sets the sub the user should contain to become an admin" -->
 		<property name="adminSubs" value="#{'${admin.subs}'.split(', ')}" />
 
+		<!-- This property sets the display of scope claims in approval page -->
+		<property name="approvalShowClaims" value="${approval.show.claims}" />
+
 		<!-- This property sets the sub the user should contain to become an admin" -->
 		<property name="adminDevelopInstance" value="${admin.develop.instance}" />
 
