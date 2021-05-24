@@ -8,6 +8,6 @@
 	<li class="divider"></li>
 </security:authorize>
 <li class="nav-header"><spring:message code="sidebar.personal.title"/></li>
-<li><a href="manage/#user/approved" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="sidebar.personal.approved_sites"/></a></li>
 <li><a href="manage/#user/services" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="sidebar.personal.services"/></a></li>
+<li><a href="manage/#user/approved" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="sidebar.personal.approved_sites"/></a></li>
 <li><a href="manage/#user/profile" data-toggle="collapse" data-target=".nav-collapse"><spring:message code="sidebar.personal.profile_information"/></a></li>
