@@ -120,12 +120,12 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 			request.getExtensions().put(NONCE, inputParams.get(NONCE));
 		}
 
-		if (inputParams.containsKey(CLAIMS)) {
-			JsonObject claimsRequest = parseClaimRequest(inputParams.get(CLAIMS));
-			if (claimsRequest != null) {
-				request.getExtensions().put(CLAIMS, claimsRequest.toString());
-			}
-		}
+		// if (inputParams.containsKey(CLAIMS)) {
+		// 	JsonObject claimsRequest = parseClaimRequest(inputParams.get(CLAIMS));
+		// 	if (claimsRequest != null) {
+		// 		request.getExtensions().put(CLAIMS, claimsRequest.toString());
+		// 	}
+		// }
 
 		if (inputParams.containsKey(MAX_AGE)) {
 			request.getExtensions().put(MAX_AGE, inputParams.get(MAX_AGE));
@@ -335,15 +335,15 @@ public class ConnectOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
 				request.setScope(scope);
 			}
 
-			JsonObject claimRequest = parseClaimRequest(claims.getStringClaim(CLAIMS));
-			if (claimRequest != null) {
-				Serializable claimExtension = request.getExtensions().get(CLAIMS);
-				if (claimExtension == null || !claimRequest.equals(parseClaimRequest(claimExtension.toString()))) {
-					logger.info("Mismatch between request object and regular parameter for claims, using request object");
-				}
-				// we save the string because the object might not be a Java Serializable, and we can parse it easily enough anyway
-				request.getExtensions().put(CLAIMS, claimRequest.toString());
-			}
+			// JsonObject claimRequest = parseClaimRequest(claims.getStringClaim(CLAIMS));
+			// if (claimRequest != null) {
+			// 	Serializable claimExtension = request.getExtensions().get(CLAIMS);
+			// 	if (claimExtension == null || !claimRequest.equals(parseClaimRequest(claimExtension.toString()))) {
+			// 		logger.info("Mismatch between request object and regular parameter for claims, using request object");
+			// 	}
+			// 	// we save the string because the object might not be a Java Serializable, and we can parse it easily enough anyway
+			// 	request.getExtensions().put(CLAIMS, claimRequest.toString());
+			// }
 
 			String loginHint = claims.getStringClaim(LOGIN_HINT);
 			if (loginHint != null) {
