@@ -71,8 +71,7 @@ public class UserInfoEndpoint {
 	 */
 	@PreAuthorize("hasRole('ROLE_USER') and #oauth2.hasScope('" + SystemScopeService.OPENID_SCOPE + "')")
 	@RequestMapping(method= {RequestMethod.GET, RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE, UserInfoJWTView.JOSE_MEDIA_TYPE_VALUE})
-	public String getInfo(@RequestParam(value="claims", required=false) String claimsRequestJsonString,
-			@RequestHeader(value=HttpHeaders.ACCEPT, required=false) String acceptHeader,
+	public String getInfo(@RequestHeader(value=HttpHeaders.ACCEPT, required=false) String acceptHeader,
 			OAuth2Authentication auth, Model model) {
 
 		if (auth == null) {
@@ -94,9 +93,9 @@ public class UserInfoEndpoint {
 
 		model.addAttribute(UserInfoView.AUTHORIZED_CLAIMS, auth.getOAuth2Request().getExtensions().get("claims"));
 
-		if (!Strings.isNullOrEmpty(claimsRequestJsonString)) {
-			model.addAttribute(UserInfoView.REQUESTED_CLAIMS, claimsRequestJsonString);
-		}
+		// if (!Strings.isNullOrEmpty(claimsRequestJsonString)) {
+		// 	model.addAttribute(UserInfoView.REQUESTED_CLAIMS, claimsRequestJsonString);
+		// }
 
 		model.addAttribute(UserInfoView.USER_INFO, userInfo);
 
