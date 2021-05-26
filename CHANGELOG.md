@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix layout of approve device page of device code grant
+- Remove whitespace after `eduperson_unique_id` in /.well-known/openid-configuration
 
 ## [v2.2.0]
 
