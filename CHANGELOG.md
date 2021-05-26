@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `ssh_public_key` scope
 
+### Fixed
+
+- Fix layout of approve device page of device code grant
+
 ## [v2.2.0]
 
 ### Added
