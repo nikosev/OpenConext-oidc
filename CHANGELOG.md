@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix layout of approve device page of device code grant
 - Remove whitespace after `eduperson_unique_id` in /.well-known/openid-configuration
+- Add option to enable/disable claims to be displayed on introspection response
 
 ### Security
 
