@@ -19,6 +19,7 @@ package org.mitre.oauth2.token;
 
 import static java.lang.String.format;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ import org.mitre.oauth2.model.OAuth2AccessTokenEntity;
 import org.mitre.oauth2.service.ClientDetailsEntityService;
 import org.mitre.oauth2.service.OAuth2TokenEntityService;
 import org.mitre.oauth2.service.SystemScopeService;
+import org.mitre.util.AttributeFiltering;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,7 @@ public class TokenExchangeTokenGranter extends AbstractTokenGranter {
     Set<String> requestedScopes = tokenRequest.getScope();
     Set<String> actorScopes = actorClient.getScope();
     Set<String> subjectTokenScopes = subjectToken.getScope();
+    Set<String> subjectTokenParametricScopes = AttributeFiltering.getParametricScopes("eduperson_entitlement", subjectTokenScopes);
 
     LOG.info("Client '{}' requests token exchange from client '{}' to impersonate user '{}' on audience '{}' with scopes '{}'", actorClient.getClientId(), subjectClient.getClientId(), subjectToken.getAuthenticationHolder().getUserAuth().getName(), audience, requestedScopes);
 
@@ -96,6 +99,10 @@ public class TokenExchangeTokenGranter extends AbstractTokenGranter {
     LOG.debug("Requested scopes: {}", requestedScopes);
     LOG.debug("Actor scopes: {}", actorScopes);
     LOG.debug("Subject token scopes: {}", subjectTokenScopes);
+    LOG.debug("Parametric scopes: {}", subjectTokenParametricScopes);
+
+    // Include the parametric scopes of the subject token
+    actorScopes = Sets.union(actorScopes, subjectTokenParametricScopes);
 
     // Ensure that actor can only request scopes allowed by its configuration
     if (!actorScopes.containsAll(requestedScopes)) {
@@ -110,6 +117,14 @@ public class TokenExchangeTokenGranter extends AbstractTokenGranter {
         throw new InvalidScopeException(String.format("Requested scope \'%s\' is a system scope but not linked to subject token", rs));
       }
     }
+  }
+
+  protected Set<String> injectParametricScopes(Set<String> subjectTokenScopes, Set<String> scopesToInject) {
+    Set<String> subjectTokenParametricScopes = AttributeFiltering.getParametricScopes("eduperson_entitlement", subjectTokenScopes);
+    // Include the parametric scopes of the subject token
+    Set<String> injectedScopes = Sets.union(scopesToInject, subjectTokenParametricScopes);
+
+    return injectedScopes;
   }
 
   @Override
@@ -136,6 +151,13 @@ public class TokenExchangeTokenGranter extends AbstractTokenGranter {
     // Does token exchange among clients acting on behalf of themselves make sense?
     if (subjectToken.getAuthenticationHolder().getUserAuth() == null) {
       throw new InvalidRequestException("No user identity linked to subject token.");
+    }
+
+    // Inject parametric scopes from the subject token
+    Set<String> requestedScopes = tokenRequest.getScope();
+    if (requestedScopes.contains("eduperson_entitlement")) {
+      Set<String> newRequestedScopes = injectParametricScopes(subjectToken.getScope(), requestedScopes);
+      tokenRequest.setScope(newRequestedScopes);
     }
 
     validateScopeExchange(actorClient, tokenRequest, subjectToken);

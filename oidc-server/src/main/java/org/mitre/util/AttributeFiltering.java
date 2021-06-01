@@ -59,6 +59,21 @@ public final class AttributeFiltering {
         return false;
     }
 
+    public static Set<String> getParametricScopes(String scope, Set<String> requestedScopes) {
+        Pattern parametricScopePattern = Pattern.compile(scope + DELIMITER + ".*", Pattern.MULTILINE);
+        Matcher matchedValue;
+        Set<String> result = new HashSet<String>();
+        
+        for (String reqScope : requestedScopes) {
+            matchedValue = parametricScopePattern.matcher(reqScope);
+            if (matchedValue.find()) {
+                result.add(matchedValue.group(0));
+            }
+        }
+
+        return result;
+    }
+
     public static Set<String> getGroupParametricScope(String scope, Set<String> requestedScopes) {
         Pattern parametricScopePattern = Pattern.compile(".+?" + DELIMITER);
         Matcher matchedValue;
