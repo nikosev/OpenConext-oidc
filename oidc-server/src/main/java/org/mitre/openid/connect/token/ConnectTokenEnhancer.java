@@ -17,6 +17,7 @@
 package org.mitre.openid.connect.token;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 import org.mitre.jwt.signer.service.JWTSigningAndValidationService;
@@ -26,6 +27,7 @@ import org.mitre.oauth2.model.ClientDetailsEntity;
 import org.mitre.oauth2.model.OAuth2AccessTokenEntity;
 import org.mitre.oauth2.service.ClientDetailsEntityService;
 import org.mitre.oauth2.service.SystemScopeService;
+import static org.mitre.oauth2.model.RegisteredClientFields.SCOPE_SEPARATOR;
 import org.mitre.openid.connect.config.ConfigurationPropertiesBean;
 import org.mitre.openid.connect.model.UserInfo;
 import org.mitre.openid.connect.service.ApprovedSiteService;
@@ -40,6 +42,7 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -88,10 +91,13 @@ public class ConnectTokenEnhancer implements TokenEnhancer {
 		OAuth2Request originalAuthRequest = authentication.getOAuth2Request();
 
 		String clientId = originalAuthRequest.getClientId();
+		Set<String> scopeSet = originalAuthRequest.getScope();
+        String scopes = Joiner.on(SCOPE_SEPARATOR).join(scopeSet);
 		ClientDetailsEntity client = clientService.loadClientByClientId(clientId);
 
 		Builder builder = new JWTClaimsSet.Builder()
 				.claim("azp", clientId)
+				.claim("scope", scopes)
 				.issuer(configBean.getIssuer())
 				.issueTime(new Date())
 				.expirationTime(token.getExpiration())
