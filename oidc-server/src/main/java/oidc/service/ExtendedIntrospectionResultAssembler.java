@@ -51,7 +51,7 @@ public class ExtendedIntrospectionResultAssembler extends DefaultIntrospectionRe
             if (config.isIntrospectClaimCertEntitlement() && scopes.contains("cert_entitlement")) {
                 result.put("cert_entitlement", CertEntitlementParser.buildCertEntitlementClaimIntrospect(federatedUserInfo.getCertEntitlement()));
             }
-            if (config.isIntrospectClaimEdupersonEntitlement() && scopes.contains("eduperson_entitlement")) {
+            if (config.isIntrospectClaimEdupersonEntitlement() && scopeSet.contains("eduperson_entitlement")) {
                 if (config.isClaimEduPersonEntitlementOld()) {
                     result.put("edu_person_entitlements", filteredAttributes);
                 }
